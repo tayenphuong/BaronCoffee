@@ -1,0 +1,24 @@
+﻿@model BaronCoffee.Models.Category
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>TẠO DANH MỤC </h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Category</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @* nhúng Partical View vào trang cha*@
+        @Html.Partial("PV_CreateEditCategories", Model)
+
+    </div>
+}
+

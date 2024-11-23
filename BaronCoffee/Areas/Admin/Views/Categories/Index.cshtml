@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BaronCoffee.Models.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h6 style="font-style: italic; text-align: center; margin-top: 15px;">DANH SÁCH DANH MỤC SẢN PHẨM</h6>
+@*định dạng nút nhấn theo bootstrap 4 clop số 8*@
+
+<table class="table bg-light col-md-12 col-md-6 ">
+    <tr>
+        <th class="bg-secondary col-lg-5">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th class="bg-secondary col-lg-3"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.CategoryName) (@item.Products.Count())
+
+            </td>
+
+            <td>
+                @Html.ActionLink("CẬP NHẬT", "Edit", new { id = item.CategoryID }, new { @class = "btn btn-success btn-sm" }) |
+                @Html.ActionLink("CHI TIẾT", "Details", new { id = item.CategoryID }, new { @class = "btn btn-primary btn-sm" }) |
+                @Html.ActionLink("XÓA", "Delete", new { id = item.CategoryID }, new { @class = "btn btn-dark btn-sm" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("THÊM MỚI", "Create", null, new { @class = "btn btn-primary " })
+</p>

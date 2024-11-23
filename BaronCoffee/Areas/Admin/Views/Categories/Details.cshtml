@@ -1,0 +1,27 @@
+﻿@model BaronCoffee.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>THÔNG TIN CHI TIẾT CỦA DANH MỤC</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.CategoryName)*@
+            Tên danh mục
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("CẬP NHẬT", "Edit", new { id = Model.CategoryID }, new { @class = "btn btn-success btn-sm" }) |
+    @Html.ActionLink("QUAY LẠI DANH MỤC", "Index", new { id = Model.CategoryID }, new { @class = "btn btn-success btn-sm" })
+</p>

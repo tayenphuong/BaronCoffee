@@ -1,0 +1,22 @@
+﻿@model BaronCoffee.Models.Category
+
+@*form con sẽ được nhúng vào form cha là Edit và Create *@
+
+<div class="form-group">
+    @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10" style="margin:20px;">
+        <input type="submit" value="Lưu" class="btn btn-secondary" />
+    </div>
+    <div>
+        @*@Html.ActionLink("Quay lại danh mục", "Index", new { id = Model.CategoryID }, new { @class = "btn btn-success btn-sm" })*@
+        @Html.ActionLink("QUAY LẠI DANH MỤC", "Index", new { }, new { @class = "btn btn-success btn-sm" })
+    </div>
+</div>
+

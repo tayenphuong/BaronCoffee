@@ -1,0 +1,233 @@
+﻿@model BaronCoffee.Models.ViewModel.HomeProduct__2VM
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "ProductsByCategory";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div style="display:flex;flex-direction:column;justify-content:center">
+
+
+    @* khối filter *@
+
+    @if (Model.Products != null && Model.Products.Any())
+    {
+        <div class="Filter-Box">
+            @using (Html.BeginForm("ProductsByCategory", "Home", FormMethod.Get))
+            {
+                <div class="form-group filter-container ">
+
+                    <input type="hidden" name="categoryId" value="@Model.CategoryId" />
+
+                    @*khung khoang gia tri *@
+                    @Html.TextBoxFor(m => m.MinPrice, new
+                    {
+                        @class = "form-control",
+                      placeholder = " Nhập giá tối thiểu",
+                         type = "number"
+
+                   })
+                    @Html.TextBoxFor(m => m.MaxPrice, new
+                    {
+                         @class = "form-control",
+                      placeholder = " Nhập giá tối đa",
+                      type = "number"
+
+                    })
+                    <button type="submit" class="TimKiem"> Lọc </button>
+
+
+                </div>
+
+                <div class="form-group oder-container">
+                    Sắp xếp theo:
+                    @Html.ActionLink("Tên tăng dần", "ProductsByCategory", "Home",
+                        new
+                             {
+                                 sortOder = "name_asc",
+                            categoryId = Model.CategoryId,
+                            minPrice = Model.MinPrice,
+                            maxPrice = Model.MaxPrice
+                             },
+                        null) |
+
+                    @Html.ActionLink("Tên giảm dần", "ProductsByCategory", "Home",
+            new
+                 {
+                     sortOder = "name_desc",
+                categoryId = Model.CategoryId,
+                minPrice = Model.MinPrice,
+                maxPrice = Model.MaxPrice
+                 },
+            null) |
+                    @Html.ActionLink("Giá tăng dần", "ProductsByCategory", "Home",
+            new
+                 {
+                     sortOder = "price_asc",
+                categoryId = Model.CategoryId,
+                minPrice = Model.MinPrice,
+                maxPrice = Model.MaxPrice
+                 },
+            null) |
+                    @Html.ActionLink("Giá giảm dần", "ProductsByCategory", "Home",
+            new
+                 {
+                     sortOder = "price_desc",
+                categoryId = Model.CategoryId,
+                minPrice = Model.MinPrice,
+                maxPrice = Model.MaxPrice
+                 },
+            null)
+                </div>
+
+
+
+            }
+        </div>
+        @* khối render sản phẩm *@
+        <div class="ListProd">
+
+            @foreach (var product in Model.Products)
+            {
+                <div class="BoxProd" style="text-align:center;">
+                    <a href="@Url.Action("ProductDetail", "CustomerHome", new { id = product.ProductID })">
+                        @*chỉnh sửa đường link liên kết*@
+
+                        <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
+
+
+                        <p class="ProdName">@product.ProductName</p>
+                        <p class="prod-price" style="font-size:13px">@product.ProductPrice</p>
+                    </a>
+                </div>
+            }
+
+
+
+        </div>
+
+    }
+    else
+    {
+        <p>Không có sản phẩm nào.</p>
+    }
+
+</div>
+<div class="pagination" style="margin-right:10px">
+    @Html.PagedListPager(Model.Products, page => Url.Action("ProductsByCategory", new
+    {
+        categoryId = Model.CategoryId,
+        minPrice = Model.MinPrice,
+        maxPrice = Model.MaxPrice,
+        sortOder = Model.SortOder,
+        page
+    }))
+</div>
+
+
+<style>
+    /* khối sản phẩm */
+    .BoxProd {
+        height: auto;
+        padding: 10px;
+        background-color: #cccc;
+        border-radius: 12px;
+        margin-top: 10px;
+    }
+
+        .BoxProd:hover {
+            transform: translateY(-3px);
+            box-shadow: 2px 2px 18px grey;
+            padding: 10px;
+        }
+
+    .ListProd {
+        margin: 20px auto auto 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 180px); /* 5 cột đều nhau */
+        gap: 15px;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+        .ListProd img {
+            width: 95%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+    p {
+        margin-top: 8px;
+    }
+
+    .ProdName {
+        font-style: italic;
+        font-size: 15px;
+        color: black;
+    }
+    /* khối filter */
+    .Filter-Box {
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 15px;
+        justify-content: center;
+        background-color: lightblue;
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .filter-container {
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center
+    }
+
+        .filter-container input {
+            border: 1px solid #cccc;
+            border-radius: 5px;
+            font-size: 15px;
+            padding: 20px;
+        }
+
+    .oder-container a {
+        color: #1e3749;
+    }
+
+
+    .TimKiem {
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 20px;
+        border-radius: 10px;
+        border: none;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        background-color: #0094ff;
+        cursor: pointer;
+    }
+
+
+    /* phân trang */
+    .pagination-container ul {
+        display: flex;
+        margin: 20px;
+    }
+
+    .pagination-container a {
+        padding: 8px;
+        background-color: #CCCC;
+        text-decoration: none;
+        margin: 10px 7px 0 0;
+        border-radius: 8px;
+        font-size: 10px;
+    }
+</style>

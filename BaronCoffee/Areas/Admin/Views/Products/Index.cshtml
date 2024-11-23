@@ -1,58 +1,126 @@
-﻿@model IEnumerable<BaronCoffee.Models.Product>
-
+﻿@model BaronCoffee.Models.ViewModel.ProductSearchVM
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <style>
+        .search-container, .oder-container {
+            margin-top: 20px;
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #cccc;
+            border-radius: 12px;
+            align-items: center;
+            padding: 10px;
+        }
 
-<h2>Index</h2>
+            .oder-container a {
+                text-decoration: none;
+                color: cornflowerblue;
+            }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductImage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th></th>
-    </tr>
+        .TimKiem {
+            width: fit-content;
+            padding: 20px;
+            border-radius: 10px;
+            border: none;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            background-color: #0094ff;
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
-        </td>
-    </tr>
-}
+        .form-group textarea {
+            width: fit-content;
+            padding: 5px;
+            height: fit-content;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+    {
+        <div class="form-group search-container ">
+            @Html.TextBoxFor(m => m.SearchTerm, new
+            {
+                 @class = "form-control",
+                placeholder = " Nhập tên, mô tả hoặc loại sản phẩm "
+            })
 
-</table>
+            @*khung khoang gia tri *@
+            @Html.TextBoxFor(m => m.MinPrice, new
+            {
+                @class = "form-control",
+              placeholder = " Nhập giá tối thiểu",
+                 type = "number"
+
+           })
+            @Html.TextBoxFor(m => m.MaxPrice, new
+            {
+                 @class = "form-control",
+              placeholder = " Nhập giá tối thiểu",
+              type = "number"
+
+            })
+            <button type="submit" class="TimKiem">Tìm kiếm</button>
+
+
+        </div>
+
+        <div class="form-group oder-container">
+            Sắp xếp theo:
+            @Html.ActionLink("Tên tăng dần", "Index", "Products",
+                new
+                     {
+                         sortOder = "name_asc",
+                searchTerm = Model.SearchTerm,
+                minPrice = Model.MinPrice,
+                maxPrice = Model.MaxPrice
+                     },
+                null) |
+
+            @Html.ActionLink("Tên giảm dần", "Index", "Products",
+    new
+         {
+             sortOder = "name_desc",
+    searchTerm = Model.SearchTerm,
+    minPrice = Model.MinPrice,
+    maxPrice = Model.MaxPrice
+         },
+    null) |
+            @Html.ActionLink("Giá tăng dần", "Index", "Products",
+    new
+         {
+             sortOder = "price_asc",
+    searchTerm = Model.SearchTerm,
+    minPrice = Model.MinPrice,
+    maxPrice = Model.MaxPrice
+         },
+    null) |
+            @Html.ActionLink("Giá giảm dần", "Index", "Products",
+    new
+         {
+             sortOder = "price_desc",
+    searchTerm = Model.SearchTerm,
+    minPrice = Model.MinPrice,
+    maxPrice = Model.MaxPrice
+         },
+    null)
+        </div>
+
+    }
+    @Html.Partial("PVListProduct", Model)
+
+</body>
+</html>
+
+
+

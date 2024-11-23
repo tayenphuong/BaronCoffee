@@ -1,59 +1,11 @@
 ﻿@model BaronCoffee.Models.Product
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-
-    </dl>
+<h2>CHI TIẾT SẢN PHẨM</h2>
+@Html.Partial("PVProductInfo", Model)
+<div style="padding:10px">
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ProductID }, new { @class = "btn btn-success btn-sm" }) |
+    @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn btn-primary btn-sm" })
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

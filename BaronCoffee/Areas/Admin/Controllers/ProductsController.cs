@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BaronCoffee.Models;
+using BaronCoffee.Models.ViewModel;
+using PagedList;
 
 namespace BaronCoffee.Areas.Admin.Controllers
 {

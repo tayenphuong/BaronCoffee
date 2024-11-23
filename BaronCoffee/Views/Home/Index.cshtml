@@ -1,33 +1,101 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model BaronCoffee.Models.ViewModel.HomeProduct__2VM
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+    .News {
+        background-color: #D9D9D9;
+        width: fit-content;
+        height: fit-content;
+        border-radius: 12px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        text-align: center;
+        padding: 20px 50px;
+        display: flex;
+        vertical-align: central;
+        justify-content: space-around;
+    }
+
+    .News-text {
+        text-align: left;
+        padding-right: 20px;
+        margin-top: 2%;
+    }
+
+    .News p {
+        margin: 0;
+        font-size: 45px;
+    }
+
+    .News-img {
+        display: flex;
+        gap: 20px;
+    }
+
+    .News-img-item {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .News-img img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .News-img1 {
+        border-left: 1px solid black;
+        padding-left: 20px;
+    }
+
+    .TinTuc {
+        margin-left: 15%;
+        align-items: center;
+    }
+</style>
+
+
+<div>
+
+    <section>
+
+        <img src="~/Content/images/banner8.png" class="image2" />
+    </section>
+    @*tin tuc khuyen mai*@
+    <section class="TinTuc">
+        <div class="News">
+            <div class="News-text">
+                <p>TIN TỨC <span style="color: #4B7864">&</span> </p>
+                <p>KHUYẾN MÃI</p>
+            </div>
+
+            <div class="News-img">
+
+                <span class="News-img-item">
+                    <img src="~/Content/images/s1.jpg" class="News-img1" />
+                </span>
+                <span class="News-img-item">
+                    <img src="~/Content/images/s2.jpg" class="News-img2" />
+                </span>
+                <span class="News-img-item">
+                    <img src="~/Content/images/images.jpeg" class="News-img2" />
+                </span>
+
+            </div>
+
+        </div>
+
     </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>
-</main>
+    @Html.Partial("PVListProduct", Model) @* sản phẩm tìm kiếm *@
+
+    @Html.Partial("PVFeaturedProducts", Model)
+
+
+</div>
+@**@

@@ -6,18 +6,20 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using BaronCoffee.Models.ViewModel;
+using System.Net;
+using System.Web.UI;
 
 
 namespace BaronCoffee.Controllers
 {
     public class HomeController : Controller
     {
+
         private MyStoreEntities db = new MyStoreEntities();
         public ActionResult DiaChi()
         {
-            var model = new HomeProduct__2VM();
-            model.Categories = db.Categories.ToList();
-            return View(model);
+            
+            return View();
         }
         
         public ActionResult Index(string SearchTerm, int? page)
@@ -44,7 +46,7 @@ namespace BaronCoffee.Controllers
             model.FeaturedProducts = db.Products.OrderByDescending(p => p.OrderDetails.Count()).Take(5).ToList();
 
             model.Categories = db.Categories.ToList();
-
+            
             return View(model);
 
         }
@@ -98,5 +100,47 @@ namespace BaronCoffee.Controllers
 
             return View("ProductsByCategory", model);
         }
+        public ActionResult ProductDetail(int?id, int?quatity ) 
+        {
+            var model = new ProductDetail();
+            model.Categories = db.Categories.ToList();
+            
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Product pro = db.Products.Find(id);
+
+            if (pro == null)
+            {
+                return HttpNotFound();
+            }
+
+            var products = db.Products.Where(p => p.CategoryID == pro.CategoryID && p.ProductID != pro.ProductID).AsQueryable();
+
+          
+           
+            model.product = pro;
+            
+
+            if (quatity.HasValue)
+            {
+                model.quatity = quatity.Value;
+            }
+            return View(model);
+
+
+        }
+        public ActionResult CategoryPage()
+        {
+            var model = new HomeProduct__2VM();
+            var categories = db.Categories.AsQueryable();
+
+            model.Categories = categories.ToList();
+            
+            return View(model);
+        }
+        
     }
 }

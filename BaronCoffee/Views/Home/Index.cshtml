@@ -1,10 +1,10 @@
 ﻿@model BaronCoffee.Models.ViewModel.HomeProduct__2VM
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
 <style>
     .News {
@@ -61,7 +61,30 @@
 
 
 <div>
+    <div class="head-middle">
 
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <div class="form-group search-container ">
+                @Html.TextBoxFor(m => m.SearchTerm, new
+                {
+                     @class = "search",
+                    placeholder = " Tìm kiếm sản phẩm, danh mục tại đây..."
+
+                })
+
+
+                <button type="submit" class="search-button">
+
+                    <i class="fa-solid fa-magnifying-glass" style="font-size:18px"></i>
+                </button>
+
+
+            </div>
+
+        }
+
+    </div>
     <section>
 
         <img src="~/Content/images/banner8.png" class="image2" />

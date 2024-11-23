@@ -58,6 +58,8 @@ namespace BaronCoffee.Areas.Admin.Controllers
             int pageNumber = page ?? 1;// lấy số trang hiện tại (mặc định là 1 nếu không có giá trị)
             int pageSize = 5;// số sản phẩm mỗi trang
 
+            int soluong = db.Products.Count();
+            model.products = soluong;
             model.Products = products.ToPagedList(pageNumber, pageSize);
 
             return View(model);

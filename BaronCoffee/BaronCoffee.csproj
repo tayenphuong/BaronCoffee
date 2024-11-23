@@ -277,11 +277,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\PVThanhMenu.cshtml" />
     <Content Include="Views\Home\PVListProduct.cshtml" />
     <Content Include="Views\Home\PVFeaturedProducts.cshtml" />
     <Content Include="Views\Home\ProductsByCategory.cshtml" />
     <Content Include="Views\Home\DiaChi.cshtml" />
+    <Content Include="Views\Home\ProductDetail.cshtml" />
+    <Content Include="Views\Home\CategoryPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

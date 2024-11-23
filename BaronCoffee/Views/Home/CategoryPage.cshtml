@@ -1,0 +1,21 @@
+﻿@model BaronCoffee.Models.ViewModel.HomeProduct__2VM
+@{
+    ViewBag.Title = "CategoryPage";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>CategoryPage</h2>
+@if (Model.Categories != null && Model.Categories.Any())
+{
+   <p style="color:#4B7864">Danh mục thực đơn</p>
+    foreach (var category in Model.Categories)
+    {
+        
+
+            <a href="@Url.Action("ProductsByCategory", "Home", new {  CategoryId = category.CategoryID})">
+                @category.CategoryName
+            </a>
+        
+    }
+    
+}

@@ -3,7 +3,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<h2>CHI TIẾT SẢN PHẨM</h2>
+<h2 style="margin-top:15px" >CHI TIẾT SẢN PHẨM</h2>
 @Html.Partial("PVProductInfo", Model)
 <div style="padding:10px">
     @Html.ActionLink("Sửa", "Edit", new { id = Model.ProductID }, new { @class = "btn btn-success btn-sm" }) |

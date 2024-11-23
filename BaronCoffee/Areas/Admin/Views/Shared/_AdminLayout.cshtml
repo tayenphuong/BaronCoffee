@@ -10,6 +10,36 @@
         .logo {
             height: 4rem;
         }
+        .footer {
+            background-color: #b5b4b4;
+            color: #4B7864;
+            clear: both;
+            display: flex;
+            flex-direction: row;
+            gap: 80px;
+            height: fit-content;
+            padding: 10px;
+        }
+
+            .footer img {
+                width: 45px;
+                height: 45px;
+            }
+
+        .Team-introduce {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .Team-introduce p {
+                margin: 0px;
+                font-size: 15px;
+            }
+
+        .Team-name {
+            color: black;
+            font: 50 18px Inter,;
+        }
     </style>
 </head>
 <body>
@@ -37,10 +67,19 @@
 
     </div>
     <hr />
-    <footer style="padding:10px">
-        <p>&copy; @DateTime.Now.Year - Email: BaronCafe@gmail.com.vn</p>
-        <p class="Team-name">Ngô Quang Hào - Bạch Thị Thủy Triều - Huỳnh Thiện Tấn - Tạ Yến Phương</p>
-    </footer>
+    <div class="footer">
+        <div class="contact-icons">
+            <img src="~/Content/images/fb-icon.png" class="fb-icon-image" />
+            <img src="~/Content/images/ins-icon.png" class="ins-icon-image" />
+            <img src="~/Content/images/tw-icon.png" class="tw-icon-image" />
+        </div>
+        <div class="Team-introduce">
+            <p>&copy; @DateTime.Now.Year - Email: BaronCafe@gmail.com.vn</p>
+            <p class="Team-name">Ngô Quang Hào - Bạch Thị Thủy Triều - Huỳnh Thiện Tấn - Tạ Yến Phương</p>
+
+
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

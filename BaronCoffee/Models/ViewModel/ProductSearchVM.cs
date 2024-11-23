@@ -24,6 +24,6 @@ namespace BaronCoffee.Models.ViewModel
 
         public PagedList.IPagedList<Product> Products { get; set; }// khi sử dụng hỗ trợ phân trang, dòng này thay cho dòng 16
 
-
-    }
+        public int products{ get; set; }
+}
 }

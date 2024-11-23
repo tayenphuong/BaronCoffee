@@ -40,7 +40,7 @@
         @foreach (var product in Model.FeaturedProducts)
         {
             <div class="BoxProdSearch" style="text-align:center;">
-                <a href="@Url.Action("ProductDetail", "CustomerHome", new { id = product.ProductID })">
+                <a href="@Url.Action("ProductDetail", "Home", new { id = product.ProductID })">
                     @*chỉnh sửa đường link liên kết*@
                     <img src="@Html.DisplayFor(modelItem => product.ProductImage)" />
                 </a>

@@ -1,4 +1,5 @@
-﻿@model BaronCoffee.Models.ViewModel.HomeProduct__2VM
+﻿
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,12 +50,13 @@
         }
         /*top head*/
         .top-head {
-            width: 80%;
+            width: 97%;
             background-color: #FAF0E7;
             border-radius: 16px;
             justify-content: space-around;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row;
+            flex-wrap: nowrap;
             align-items: center;
         }
 
@@ -64,12 +66,13 @@
             }
 
         .logo {
-            width: 100%;
+            width: 80%;
             height: auto;
         }
 
         .head-middle {
             position: relative;
+            left: 40%
         }
 
         .top-head input {
@@ -88,7 +91,7 @@
 
         .search-button {
             position: absolute;
-            right: 0;
+            left: 50%;
             top: 8%;
             bottom: 0;
             border: none;
@@ -137,7 +140,7 @@
         }
         /*thanh menu*/
         .list-background {
-            width: 100%;
+            width: 50%;
             height: fit-content;
             margin-top: 8px;
             padding: 0;
@@ -156,7 +159,7 @@
         /* thanh menu */
         .menu1 {
             font-size: 20px;
-            color: white;
+            color: black;
             display: inline-block;
             block-size: 35px;
             text-decoration: none;
@@ -169,7 +172,7 @@
                 display: inline-block;
                 text-decoration: none;
                 padding: 10px;
-                background-color: #53382C;
+                background-color: #4B7864;
                 width: fit-content;
                 border-radius: 8px;
             }
@@ -188,11 +191,7 @@
             border-radius: 2px;
         }
 
-        /*        .ad {
-            clear: both;
-            display: flex;
-            align-items: center;
-        }*/
+
 
 
 
@@ -285,7 +284,7 @@
 
         .prod-box {
             /*            width: 150px;
-            height: 150px;*/
+                height: 150px;*/
             border-radius: 12px;
             transition: transform 0.2s ease;
         }
@@ -315,7 +314,7 @@
             margin: 0;
         }
         /*------------------------------------------------------footer------------------------------------------------------------------*/
-        #footer {
+        .footer {
             background-color: #b5b4b4;
             color: #4B7864;
             clear: both;
@@ -326,7 +325,7 @@
             padding: 10px;
         }
 
-            #footer img {
+            .footer img {
                 width: 45px;
                 height: 45px;
             }
@@ -346,7 +345,7 @@
             font: 50 18px Inter,;
         }
         /* dropdown menu thực đơn */
-        .list li {
+        /*        .list li {
             display: inline-block;
             position: relative;
         }
@@ -386,7 +385,7 @@
 
         ul li:hover ul.dropdown {
             display: block;
-        }
+        }*/
     </style>
 
 </head>
@@ -397,29 +396,19 @@
 
             <a href="~/Home/Index"><img src="~/Content/images/logo1.png" class="logo" /></a>
 
-            <div class="head-middle">
+            <div class="list-background">
+                <ul class="list">
+                    <li><a href="~/Home/Index" class="menu1">Trang chủ</a></li>
 
-                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-                {
-                    <div class="form-group search-container ">
-                        @Html.TextBoxFor(m => m.SearchTerm, new
-                        {
-                             @class = "search",
-                            placeholder = " Tìm kiếm sản phẩm, danh mục tại đây..."
+                    <li>
+                        <a href="@Url.Action("CategoryPage", "Home")" class="menu1">Thực đơn</a>
+                        
+                    </li>
 
-                        })
-
-
-                        <button type="submit" class="search-button">
-
-                            <i class="fa-solid fa-magnifying-glass" style="font-size:18px"></i>
-                        </button>
-
-
-                    </div>
-
-                }
-
+                    <li><a href="~/Home/Recruit" class="menu1">Tuyển dụng</a></li>
+                    <li class="dropdown-btn"><a href="~/Home/DiaChi" class="menu1">Địa chỉ</a></li>
+                    <li><a href="~/Home/Address" class="menu1">Lịch sử mua hàng</a></li>
+                </ul>
             </div>
 
             <ul class="menu">
@@ -436,13 +425,14 @@
         </div>
 
         @*--------------------------- thanh menu ---------------------------*@
-        @Html.Partial("PVThanhMenu", Model)
-       
+
+
     </header>
     <div class="container body-content" style="margin:0 auto">
         @RenderBody()
     </div>
-    <footer id="footer">
+
+    <div class="footer">
         <div class="contact-icons">
             <img src="~/Content/images/fb-icon.png" class="fb-icon-image" />
             <img src="~/Content/images/ins-icon.png" class="ins-icon-image" />
@@ -454,11 +444,7 @@
 
 
         </div>
-
-
-
-
-    </footer>
+    </div>
 
 </body>
 </html>

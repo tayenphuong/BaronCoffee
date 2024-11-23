@@ -1,6 +1,6 @@
 ﻿@model BaronCoffee.Models.ViewModel.ProductSearchVM
 @using PagedList.Mvc;
-<head>
+
     <style>
         img {
             height: 150px;
@@ -15,15 +15,15 @@
             border-radius: 8px;
         }
     </style>
-</head>
+
 @if (Model.Products != null && Model.Products.Any())
 {
-    <h6 style="font-style: italic; text-align: center; margin-top: 15px" ;>DANH SÁCH SẢN PHẨM</h6>
+    <h6 style="font-style: italic; text-align: center; margin-top: 15px" ;>DANH SÁCH SẢN PHẨM (@Model.products) </h6>
     <table class="table col-xs-10" style="font-size:20px;text-align:center">
         <thead class="col-sm-12">
             <tr>
                 <th class="bg-info col-sm-2">
-                    Tên sản phẩm
+                    Tên sản phẩm 
                 </th>
                 <th class="bg-info col-sm-2">
                     Mô tả

@@ -3,9 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
+
+  
     <title>Search</title>
     <style>
         .search-container, .oder-container {
@@ -38,14 +37,16 @@
             background-color: #0094ff;
         }
 
-        .form-group textarea {
+        .form-group input {
             width: fit-content;
-            padding: 5px;
+            padding: 30px;
             height: fit-content;
+            font-size: 20px;
         }
+        
+       
     </style>
-</head>
-<body>
+
     @using (Html.BeginForm("Index", "Products", FormMethod.Get))
     {
         <div class="form-group search-container ">
@@ -66,7 +67,7 @@
             @Html.TextBoxFor(m => m.MaxPrice, new
             {
                  @class = "form-control",
-              placeholder = " Nhập giá tối thiểu",
+              placeholder = " Nhập giá tối đa",
               type = "number"
 
             })
@@ -119,8 +120,7 @@
     }
     @Html.Partial("PVListProduct", Model)
 
-</body>
-</html>
+
 
 
 

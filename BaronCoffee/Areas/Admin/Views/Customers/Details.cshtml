@@ -1,0 +1,16 @@
+﻿@model LapTrinhWeb.Models.Customer
+
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>CHI TIẾT</h2>
+
+<div>
+    @Html.Partial("PVDetail_Delete", Model)
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

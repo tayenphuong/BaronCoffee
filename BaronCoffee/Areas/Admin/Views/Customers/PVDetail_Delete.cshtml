@@ -1,0 +1,50 @@
+﻿@model LapTrinhWeb.Models.Customer
+<dl class="dl-horizontal">
+    <dt>
+        Tên đăng nhập
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.User.Username)
+    </dd>
+    <dt>
+        Mật khẩu
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.User.Password)
+    </dd>
+    <dt>
+        Họ tên
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CustomerName)
+    </dd>
+
+    <dt>
+        Số điện thoại
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CustomerPhone)
+    </dd>
+
+    <dt>
+        Email
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CustomerEmail)
+    </dd>
+
+    <dt>
+        Địa chỉ
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.CustomerAddress)
+    </dd>
+
+</dl>
+

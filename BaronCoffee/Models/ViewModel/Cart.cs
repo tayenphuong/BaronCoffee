@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using ThietKeWeb.Models;
+using BaronCoffee.Models;
 
-namespace ThietKeWeb.Models
+namespace BaronCoffee.Models
 {
 
         public class Cart

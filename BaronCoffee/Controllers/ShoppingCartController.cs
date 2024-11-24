@@ -5,13 +5,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ThietKeWeb.Models;
-
-namespace ThietKeWeb.Controllers
+using BaronCoffee.Models;
+using BaronCoffee.Models.ViewModel;
+using PagedList.Mvc;
+namespace BaronCoffee.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private MyStoreEntities1 db = new MyStoreEntities1();
+        private MyStoreEntities db = new MyStoreEntities();
 
 
         // GET: ShoppingCart
@@ -57,6 +58,34 @@ namespace ThietKeWeb.Controllers
 
             }
             return RedirectToAction("ShoppingCartPage");
+        }
+
+        public ActionResult Checkout()
+        {
+            // Lấy giỏ hàng từ CartService
+            var cartService = Get_CartService();
+            var cartItems = cartService.GetCart().CartItems.ToList();
+
+            // Nếu không có giỏ hàng, tạo giỏ hàng rỗng
+            if (cartItems == null || !cartItems.Any())
+            {
+                cartItems = new List<CartItem>();
+            }
+
+            // Tính tổng tiền và số lượng sản phẩm
+            ViewBag.CartItems = cartItems;
+            ViewBag.TotalPrice = cartItems.Sum(item => item.Quantity * item.UnitPrice);
+            ViewBag.TotalQuantity = cartItems.Sum(item => item.Quantity);
+
+            var CheckoutVM = new CheckoutVM
+            {
+                CartItems = cartItems
+
+            };
+
+
+            return View(CheckoutVM);
+
         }
 
 

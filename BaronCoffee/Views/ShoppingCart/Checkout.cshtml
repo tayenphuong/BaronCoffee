@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@using BaronCoffee.Models
+@model BaronCoffee.Models.ViewModel.CheckoutVM
+<style>
+    body {
+        background-color: #f9f9f9;
+    }
+
+    .checkout-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333333;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .order-summary {
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+    }
+
+        .order-summary h3 {
+            margin-bottom: 15px;
+        }
+
+    .btn-submit {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+</style>
+
+<div class="checkout-container">
+    <h1>Xác Nhận Thanh Toán</h1>
+
+    <div class="order-summary">
+        <h3>Thông Tin Đơn Hàng</h3>
+        <p><strong>Tổng tiền:</strong> @ViewBag.TotalPrice VNĐ</p>
+        <p><strong>Tổng số lượng sản phẩm:</strong> @ViewBag.TotalQuantity</p>
+
+        <h4>Chi Tiết Sản Phẩm:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Hình Ảnh</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Thành Tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td><img src="@item.ProductImage" style="width: 80px; height: 60px;" /></td>
+                        <td>@item.ProductName</td>
+                        <td>@item.UnitPrice VNĐ</td>
+                        <td>@item.Quantity</td>
+                        <td>@(item.Quantity * item.UnitPrice) VNĐ</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <form action="/ShoppingCart/ConfirmOrder" method="post">
+        <div>
+            <label for="name">Họ và Tên:</label>
+            <input type="text" id="name" name="CustomerName" placeholder="Nhập họ và tên của bạn" required>
+        </div>
+
+        <div>
+            <label for="address">Địa chỉ giao hàng:</label>
+            <textarea id="address" name="Address" rows="3" placeholder="Nhập địa chỉ của bạn" required></textarea>
+        </div>
+
+        <div>
+            <label for="phone">Số điện thoại:</label>
+            <input type="text" id="phone" name="Phone" placeholder="Nhập số điện thoại của bạn" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Xác Nhận Thanh Toán</button>
+    </form>
+</div>
+
+

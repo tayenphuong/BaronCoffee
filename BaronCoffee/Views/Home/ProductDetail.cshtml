@@ -65,7 +65,12 @@
             <button class="quantity-btn">+</button>
         </div>
 
-        <button class="cart-btn"><a href="../../ShoppingCart/ShoppingCartPage>">Thêm vào giỏ hàng : 50.000 VNĐ</a></button>
+        <button class="cart-btn">
+            <a href="@Url.Action("AddToCart","ShoppingCart",new { id = Model.product.ProductID,quantity = Model.quantity })" class="btn-AddOnCart button" id="Add-to-cart">
+                Thêm vào giỏ hàng50.000 VNĐ
+            </a>
+        </button>
+      
     </div>
 </div>
 <style>

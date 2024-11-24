@@ -1,151 +1,102 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ShoppingCartPage";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
-
-<style type="text/css">
-    body {
-        background-color: #4B7864;
-        text-align: center;
-    }
-
-    a {
-        text-decoration: none;
-    }
-
-        a:hover {
-            color: white;
-        }
-
-    .no-border {
-        border: none;
-        background: transparent;
-        text-align: center;
-        width: 100px;
-    }
-
+<style>
     .cart-container {
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
-        margin-top: 20px;
-        max-width: 1920px; /* Thiết lập chiều rộng tối đa */
-        width: 100%; /* Đảm bảo vẫn có khoảng trống ở hai bên trên màn hình lớn */
-        margin-left: auto;
-        margin-right: auto;
+        margin: 20px auto;
+        max-width: 1200px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .cart-left {
-        flex: 1; /* Đảm bảo co giãn tốt */
-        max-width: auto; /* Giới hạn chiều rộng tối đa để tránh quá lớn */
-        background-color: #f5f5f5;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex: 2;
+        margin-right: 20px;
     }
 
     .cart-right {
         flex: 1;
-        max-width: 30%; /* Giới hạn chiều rộng tối đa */
+        padding: 20px;
         background-color: #fafafa;
         border: 1px solid #ddd;
-        padding: 20px;
         border-radius: 8px;
-        text-align: left;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    table {
-        border-collapse: collapse;
+    .summary-box {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .action-buttons button {
         width: 100%;
-        margin-top: 10px;
-    }
-
-    .button {
-        font-size: 20px;
-        float: right;
-        margin-top: 10px;
-        margin-right: 150px;
+        padding: 10px;
         margin-bottom: 10px;
-    }
-
-    th {
-        text-align: center;
-        color: #333333;
-    }
-
-    img {
-        width: 80px;
-        height: 60px;
-    }
-
-    /* Nút bấm */
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
+        border: none;
+        background-color: #4B7864;
         color: white;
-    }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-
-    .btn-success {
-        background-color: #28a745;
-        border-color: #28a745;
-        color: white;
-    }
-
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #218838;
-        }
-
-    /* Tổng tiền và tổng số lượng */
-    #grandTotal, #totalQuantity, #orderGrandTotal {
+        font-size: 16px;
         font-weight: bold;
-        color: #333333;
-    }
-
-    .modal {
-        display: none; /* Ẩn modal theo mặc định */
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        border-radius: 8px;
-    }
-
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
+        border-radius: 5px;
         cursor: pointer;
     }
 
-        .close:hover, .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+        .action-buttons button:hover {
+            background-color: #3a6352;
+        }
+
+    h1, h2 {
+        text-align: center;
+        color: #4B7864;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+        color: #333;
+    }
+
+    td img {
+        width: 80px;
+        height: auto;
+    }
+
+    td button {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        td button:hover {
+            background-color: darkred;
         }
 </style>
-
 <div class="cart-container">
-    <!-- Phần giỏ hàng bên trái -->
+    <!-- Bên trái: Danh sách sản phẩm trong giỏ -->
     <div class="cart-left">
         <h1>Giỏ Hàng</h1>
         <table class="table table-bordered">
@@ -156,80 +107,48 @@
                     <th>Giá tiền</th>
                     <th>Số Lượng</th>
                     <th>Thành Tiền</th>
+                    <th>Hành động</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><img src="~/Content/images/sp1.png" /></td>
                     <td>Cà phê đen</td>
-                    <td>
-                        <input type="text" id="iPrice1" name="Price" value="20000" readonly class="no-border" />
-                    </td>
-                    <td>
-                        <input type="number" id="iQuantity1" name="Quantity" value="0" min="0" max="15" oninput="CalculateTotal();" />
-                    </td>
-                    <td>
-                        <label id="lbTotal1"></label>
-                    </td>
-                    <td>
-                        <button type="button" onclick="removeProduct(this)">Xóa</button>
-                    </td>
+                    <td><input type="text" id="iPrice1" value="20000" readonly class="no-border" /></td>
+                    <td><input type="number" id="iQuantity1" value="0" min="0" max="15" oninput="CalculateTotal();" /></td>
+                    <td><label id="lbTotal1"></label></td>
+                    <td><button type="button" onclick="removeProduct(this)">Xóa</button></td>
                 </tr>
             </tbody>
-
-            <tfoot>
-                <tr>
-                    <td colspan="4" style="text-align: right; font-weight: bold;">Tổng tiền:</td>
-                    <td><label id="grandTotal">0</label></td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="text-align: right; font-weight: bold;">Tổng số lượng sản phẩm:</td>
-                    <td><label id="totalQuantity">0</label></td>
-                </tr>
-                <tr>
-                    <td colspan="5" style="text-align: right;">
-                        <button type="button" class="btn btn-primary" onclick="addNewProduct()">Thêm sản phẩm mới</button>
-                        <button type="button" class="btn btn-success" onclick="openOrderInfoModal()">Thanh Toán</button>
-                    </td>
-                </tr>
-
-            </tfoot>
-
         </table>
     </div>
-    <div id="orderInfoModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeOrderInfoModal()">&times;</span>
-            <h3>Thông tin đơn hàng</h3>
-            <p><strong>Tổng tiền:</strong> <span id="modalGrandTotal">0</span> VNĐ</p>
-            <p>
-                <label for="modalAddress">Địa chỉ:</label>
-                <input type="text" id="modalAddress" placeholder="Nhập địa chỉ của bạn" style="width: 100%;" />
-            </p>
-            <p>
-                <label for="modalPhone">Số điện thoại:</label>
-                <input type="text" id="modalPhone" placeholder="Nhập số điện thoại của bạn" style="width: 100%;" />
-            </p>
-            <button type="submit" class="btn btn-success" onclick="confirmPayment()">Xác nhận Thanh Toán</button>
+
+    <!-- Bên phải: Tổng tiền và các hành động -->
+    <div class="cart-right">
+        <h2>Tóm Tắt Giỏ Hàng</h2>
+        <div class="summary-box">
+            <p><strong>Tổng số lượng sản phẩm:</strong> <span id="totalQuantity">0</span></p>
+            <p><strong>Tổng tiền:</strong> <span id="grandTotal">0</span> VNĐ</p>
+        </div>
+        <div class="action-buttons">
+            <button type="button" class="btn btn-primary" onclick="addNewProduct()">Thêm sản phẩm mới</button>
+            <form action="@Url.Action("Checkout", "ShoppingCart")" method="get" style="margin-top: 10px;">
+                <button type="submit" class="btn btn-success">Thanh Toán</button>
+            </form>
         </div>
     </div>
-
-
-    <!-- Bảng thông tin chi tiết sản phẩm bên phải -->
-
 </div>
 
 
-<script language="Javascript">
-    let numrows = 2; // Số dòng sản phẩm hiện tại trong giỏ hàng
+
+<script>
+    let numrows = 2;
 
     function CalculateTotal() {
-        let grandTotal = 0; // Biến để lưu tổng tiền của tất cả sản phẩm
-        let totalQuantity = 0; // Biến để lưu tổng số lượng sản phẩm
-
-        // Lấy tất cả các dòng trong bảng
+        let grandTotal = 0;
+        let totalQuantity = 0;
         const rows = document.querySelectorAll(".table tbody tr");
-        rows.forEach((row, index) => {
+        rows.forEach((row) => {
             const priceElement = row.querySelector(`[id^="iPrice"]`);
             const quantityElement = row.querySelector(`[id^="iQuantity"]`);
             const totalLabel = row.querySelector(`[id^="lbTotal"]`);
@@ -237,88 +156,27 @@
             if (priceElement && quantityElement && totalLabel) {
                 const price = parseFloat(priceElement.value) || 0;
                 const quantity = parseFloat(quantityElement.value) || 0;
-
-                // Kiểm tra giá trị hợp lệ
-                if (isNaN(price) || price <= 0 || isNaN(quantity) || quantity < 1 || quantity > 15) {
-                    totalLabel.innerText = " ";
-                    return;
-                }
-
-                // Tính toán và hiển thị thành tiền
                 const total = price * quantity;
                 totalLabel.innerText = total.toFixed(0);
-
                 grandTotal += total;
                 totalQuantity += quantity;
             }
         });
 
-        // Hiển thị tổng tiền và tổng số lượng
         document.getElementById("grandTotal").innerText = grandTotal.toFixed(0);
-        document.getElementById("orderGrandTotal").innerText = grandTotal.toFixed(0);
-        document.getElementById("totalQuantity").innerText = totalQuantity;
-    }
-
-    function openOrderInfoModal() {
-        const modal = document.getElementById("orderInfoModal");
-        const grandTotal = document.getElementById("grandTotal").innerText;
-        const modalGrandTotal = document.getElementById("modalGrandTotal");
-
-        modalGrandTotal.innerText = grandTotal; // Hiển thị tổng tiền trong modal
-        modal.style.display = "block"; // Hiển thị modal
-    }
-
-    function closeOrderInfoModal() {
-        const modal = document.getElementById("orderInfoModal");
-        modal.style.display = "none"; // Ẩn modal
-    }
-
-    function confirmPayment() {
-        const address = document.getElementById("modalAddress").value.trim();
-        const phone = document.getElementById("modalPhone").value.trim();
-        const grandTotal = parseFloat(document.getElementById("modalGrandTotal").innerText);
-
-        if (grandTotal <= 0) {
-            alert("Thanh toán thất bại! Vui lòng kiểm tra tổng tiền.");
-            return;
-        }
-
-        if (!address) {
-            alert("Vui lòng nhập địa chỉ.");
-            return;
-        }
-
-        if (!phone) {
-            alert("Vui lòng nhập số điện thoại.");
-            return;
-        }
-
-        alert("Thanh toán thành công!");
-        closeOrderInfoModal();
-    }
-
-
-    document.addEventListener('DOMContentLoaded', CalculateTotal);
-
-    function selectProduct(obj) {
-        var errMsg = document.getElementById("err_msg");
-        var value = obj.value;
-        if (value == '') {
-            errMsg.innerHTML = "Hãy chọn sản phẩm";
-        } else {
-            errMsg.innerHTML = ""; // Xóa thông báo lỗi nếu đã chọn sản phẩm
-        }
+        document.getElementById("totalQuantity").innerText = totalQuantity.toFixed(0);
     }
 
     function addNewProduct() {
-        window.location.href = "ProDuctDetail"; // Chuyển hướng đến view "Add" của controller "Product"
+        window.location.href = "../Home/ProductsByCategory";
     }
-
 
     function removeProduct(button) {
         const row = button.parentElement.parentElement;
-        row.remove(); // Xóa dòng sản phẩm
-        numrows--; // Giảm số lượng hàng
-        CalculateTotal(); // Cập nhật tổng tiền và tổng số lượng
+        row.remove();
+        numrows--;
+        CalculateTotal();
     }
+
+    document.addEventListener('DOMContentLoaded', CalculateTotal);
 </script>

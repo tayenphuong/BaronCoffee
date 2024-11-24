@@ -5,7 +5,7 @@ using System.Web;
 using static System.Collections.Specialized.BitVector32;
 using System.Web.Mvc;
 
-namespace ThietKeWeb.Models
+namespace BaronCoffee.Models
 {
     public class CartService
     {

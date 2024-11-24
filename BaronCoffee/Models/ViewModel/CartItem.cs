@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ThietKeWeb.Models
+namespace BaronCoffee.Models
 {
     public class CartItem
     {

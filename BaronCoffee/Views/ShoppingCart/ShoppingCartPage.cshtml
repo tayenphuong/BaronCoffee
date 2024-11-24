@@ -2,6 +2,9 @@
     ViewBag.Title = "ShoppingCartPage";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
+@using BaronCoffee.Models
+@model BaronCoffee.Models.ViewModel.CheckoutVM
+
 <style>
     .cart-container {
         display: flex;
@@ -99,39 +102,58 @@
     <!-- Bên trái: Danh sách sản phẩm trong giỏ -->
     <div class="cart-left">
         <h1>Giỏ Hàng</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Hình Ảnh</th>
-                    <th>Tên Sản Phẩm</th>
-                    <th>Giá tiền</th>
-                    <th>Số Lượng</th>
-                    <th>Thành Tiền</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="~/Content/images/sp1.png" /></td>
-                    <td>Cà phê đen</td>
-                    <td><input type="text" id="iPrice1" value="20000" readonly class="no-border" /></td>
-                    <td><input type="number" id="iQuantity1" value="0" min="0" max="15" oninput="CalculateTotal();" /></td>
-                    <td><label id="lbTotal1"></label></td>
-                    <td><button type="button" onclick="removeProduct(this)">Xóa</button></td>
-                </tr>
-            </tbody>
-        </table>
+
+        @if (ViewBag.CartItems != null && ((List<BaronCoffee.Models.CartItem>)ViewBag.CartItems).Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hình Ảnh</th>
+                        <th>Tên Sản Phẩm</th>
+                        <th>Giá tiền</th>
+                        <th>Số Lượng</th>
+                        <th>Thành Tiền</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (List<BaronCoffee.Models.CartItem>)ViewBag.CartItems)
+                    {
+                        <tr>
+                            <td><img src="@item.ProductImage" alt="@item.ProductName" style="width: 80px; height: 60px;" /></td>
+                            <td>@item.ProductName</td>
+                            <td>@item.UnitPrice VNĐ</td>
+                            <td>
+                                <input type="number" value="@item.Quantity" min="1" max="99"
+                                       onchange="updateCartItem(@item.ProductId, this.value)" />
+                            </td>
+                            <td>@(item.Quantity * item.UnitPrice) VNĐ</td>
+                            <td>
+                                <a href="@Url.Action("DeleteItemsOnCart", "ShoppingCart", new { id = item.ProductId })"
+                                   class="btn btn-danger">Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Giỏ hàng của bạn hiện đang trống.</p>
+        }
+
+
     </div>
 
     <!-- Bên phải: Tổng tiền và các hành động -->
     <div class="cart-right">
         <h2>Tóm Tắt Giỏ Hàng</h2>
         <div class="summary-box">
-            <p><strong>Tổng số lượng sản phẩm:</strong> <span id="totalQuantity">0</span></p>
-            <p><strong>Tổng tiền:</strong> <span id="grandTotal">0</span> VNĐ</p>
+            <p><strong>Tổng số lượng sản phẩm:</strong> @ViewBag.TotalQuantity</p>
+            <p><strong>Tổng tiền:</strong> @ViewBag.TotalPrice VNĐ</p>
         </div>
         <div class="action-buttons">
-            <button type="button" class="btn btn-primary" onclick="addNewProduct()">Thêm sản phẩm mới</button>
+            <a href="@Url.Action("ProductsByCategory", "Home")" class="btn btn-primary">Thêm sản phẩm mới</a>
             <form action="@Url.Action("Checkout", "ShoppingCart")" method="get" style="margin-top: 10px;">
                 <button type="submit" class="btn btn-success">Thanh Toán</button>
             </form>
@@ -170,6 +192,28 @@
     function addNewProduct() {
         window.location.href = "../Home/ProductsByCategory";
     }
+
+
+    function updateCartItem(productId, quantity) {
+        // Gửi yêu cầu đến server để cập nhật số lượng
+        fetch(`/ShoppingCart/UpdateCartItem`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId, quantity }),
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Reload lại trang để hiển thị cập nhật mới
+                    window.location.reload();
+                } else {
+                    alert('Cập nhật giỏ hàng thất bại!');
+                }
+            })
+            .catch(error => console.error('Lỗi:', error));
+    }
+
 
     function removeProduct(button) {
         const row = button.parentElement.parentElement;

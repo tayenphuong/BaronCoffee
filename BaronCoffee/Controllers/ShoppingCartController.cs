@@ -154,54 +154,40 @@ namespace BaronCoffee.Controllers
             return RedirectToAction("ShoppingCartPage");
         }
 
-        // Action xử lý khi xác nhận đơn hàng (Confirm Order)
         public ActionResult OrderHistory()
         {
-            // Giả sử bạn đã lấy giỏ hàng và thông tin thanh toán
-            var cart = Session["CartItems"] as Cart;
-            var user = Session["User"] as User;
+            // Lấy danh sách lịch sử đơn hàng từ Session hoặc khởi tạo mới nếu chưa có
+            var orderHistories = Session["OrderHistories"] as List<OrderHistory> ?? new List<OrderHistory>();
 
-            if (cart != null && user != null)
+            // Lấy giỏ hàng từ Session
+            var cart = Session["CartItems"] as Cart;
+
+            if (cart != null && cart.CartItems.Any())
             {
-                // Lưu thông tin đơn hàng vào "orderHistory"
+                // Tạo một lịch sử đơn hàng mới từ dữ liệu trong giỏ hàng
                 var orderHistory = new OrderHistory
                 {
-                    OrderID = new Random().Next(1000, 9999),  // Tạo ID đơn hàng ngẫu nhiên
-                    UserID = user.UserID,
-                    ProductID = cart.CartItems.FirstOrDefault().ProductID,  // Lấy sản phẩm đầu tiên trong giỏ hàng
-                    Quantity = cart.CartItems.Sum(item => item.Quantity),
-                    Status = "Completed",  // Đơn hàng hoàn thành
-                    TotalAmount = cart.CartItems.Sum(item => item.Quantity * item.UnitPrice),
-                    OrderDate = DateTime.Now
+                    OrderID = new Random().Next(1000, 9999), // ID đơn hàng ngẫu nhiên
+                    OrderDate = DateTime.Now,
+                    Status = "Completed", // Trạng thái đơn hàng
+                    TotalAmount = cart.CartItems.Sum(item => item.Quantity * item.UnitPrice), // Tổng tiền
+                    Products = cart.CartItems.ToList() // Chuyển đổi IEnumerable thành List
                 };
 
-                // Lưu vào Session với tên "OrderHistories"
-                var orderHistories = Session["OrderHistories"] as List<OrderHistory> ?? new List<OrderHistory>();
+                // Thêm đơn hàng mới vào danh sách lịch sử
                 orderHistories.Add(orderHistory);
+
+                // Lưu danh sách lịch sử đơn hàng vào Session
                 Session["OrderHistories"] = orderHistories;
 
-                // Sau khi lưu, chuyển đến trang xác nhận
-                return View(orderHistory);  // Trả về view xác nhận đơn hàng
+                // Xóa giỏ hàng sau khi tạo đơn hàng
+                Session["CartItems"] = null;
             }
 
-            return RedirectToAction("Index", "Home");  // Điều hướng nếu không có giỏ hàng
-        }
-
-        // Action hiển thị lịch sử đơn hàng
-        public ActionResult OrderHistoryPage()
-        {
-            // Lấy danh sách lịch sử đơn hàng từ Session
-            var orderHistories = Session["OrderHistories"] as List<OrderHistory>;
-
-            // Nếu không có dữ liệu, khởi tạo danh sách trống
-            if (orderHistories == null)
-            {
-                orderHistories = new List<OrderHistory>();
-            }
-
-            // Trả về view với danh sách các đơn hàng
+            // Truyền danh sách lịch sử đơn hàng vào View
             return View(orderHistories);
         }
+
 
 
     }

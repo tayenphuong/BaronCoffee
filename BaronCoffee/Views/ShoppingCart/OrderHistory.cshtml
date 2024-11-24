@@ -1,33 +1,47 @@
-﻿
+﻿@model List<BaronCoffee.Models.ViewModel.OrderHistory>
+@using System.Linq
+
 @{
-    ViewBag.Title = "OrderHistory";
+    ViewBag.Title = "Lịch Sử Giao Dịch";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-<h2>Lịch sử giao dịch</h2>
+<h2>Lịch Sử Giao Dịch</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Mã đơn hàng</th>
-            <th>Sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Tổng tiền</th>
-            <th>Trạng thái</th>
-            <th>Ngày đặt</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
-            <tr>
-                <td>@order.OrderID</td>
-                <td>@order.ProductID</td> <!-- Thay thế bằng tên sản phẩm nếu cần -->
-                <td>@order.Quantity</td>
-                <td>@order.TotalAmount</td>
-                <td>@order.Status</td>
-                <td>@order.OrderDate</td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (Model != null && Model.Any())
+{
+    foreach (var order in Model)
+    {
+        <div class="order-summary">
+            <h4>Đơn Hàng #@order.OrderID</h4>
+            <p>Ngày Đặt Hàng: @order.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+            <p>Trạng Thái: @order.Status</p>
+            <p>Tổng Số Tiền: @order.TotalAmount.ToString("C")</p>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Đơn Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in order.Products)
+                    {
+                        <tr>
+                            <td>@product.ProductName</td>
+                            <td>@product.Quantity</td>
+                            <td>@product.UnitPrice.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <hr />
+    }
+}
+else
+{
+    <p>Bạn chưa có giao dịch nào.</p>
+}

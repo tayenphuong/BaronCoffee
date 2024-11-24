@@ -1,0 +1,50 @@
+﻿@model BaronCoffee.Models.ViewModel.RegisterVM
+
+@{
+    ViewBag.Title = "Thông tin tài khoản";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2 style="color:black; text-align:center">Thông tin tài khoản</h2>
+@using (Html.BeginForm("ProfileInfo", "Account", FormMethod.Post))
+{
+    <dl class="dl-horizontal">
+        @Html.HiddenFor(m => m.Username)
+        <dt>
+            <label>Tên khách hàng</label>
+        </dt>
+        <dd>
+            @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @style = "width: 40%", @readonly = "readonly" })
+        </dd>
+
+        <dt>
+            <label>Số điện thoại</label>
+        </dt>
+        <dd>
+            @Html.TextBoxFor(m => m.CustomerPhone, new { @class = "form-control", @style = "width: 40%", @readonly = "readonly" })
+        </dd>
+        <dt>
+            <label>Email</label>
+        </dt>
+        <dd>
+            @Html.TextBoxFor(m => m.CustomerEmail, new { @class = "form-control", @style = "width: 40%", @readonly = "readonly" })
+        </dd>
+        <dt>
+            <label>Địa chỉ</label>
+        </dt>
+        <dd>
+            @Html.TextBoxFor(m => m.CustomerAddress, new { @class = "form-control", @style = "width: 40%", @readonly = "readonly" })
+        </dd>
+    </dl>
+    <p>
+        <a href="@Url.Action("UpdateProfile", "Account")" class="btn btn-primary">Cập Nhật Thông Tin</a> |
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay lại</a>
+    </p>
+}
+
+@if (ViewBag.Message != null)
+{
+    <p class="text-success">@ViewBag.Message</p>
+}
+
+

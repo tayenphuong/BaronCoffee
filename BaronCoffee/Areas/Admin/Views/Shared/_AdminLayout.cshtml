@@ -4,18 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
         .logo {
             height: 4rem;
         }
+
         .footer {
             background-color: #b5b4b4;
             color: #4B7864;
             clear: both;
             display: flex;
-            flex-direction: row;
+            justify-content: space-around;
             gap: 80px;
             height: fit-content;
             padding: 10px;
@@ -26,13 +32,8 @@
                 height: 45px;
             }
 
-        .Team-introduce {
-            display: flex;
-            flex-direction: column;
-        }
-
-            .Team-introduce p {
-                margin: 0px;
+            .footer p {
+                margin: auto 0;
                 font-size: 15px;
             }
 
@@ -59,6 +60,21 @@
                     <li>@Html.ActionLink("Sản phẩm", "Index", "Products", new { }, new { @class = "nav-link" })</li>
 
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        @if (Session["Username"] != null)
+                        {
+                            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" href="#"><span class="fas fa-user"></span>Xin chào!@Session["Username"]</a>
+                            <div class="dropdown-menu">
+                                @Html.ActionLink("Đăng xuất", "Logout", "Admin_Login", new { area = "Admin" }, new { @class = "dropdown-item" })
+                            </div>
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="@Url.Action("Login", "Admin_Login", new {area = "Admin"})"><span class="fas fa-user"></span>Tài khoản</a>
+                        }
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -73,12 +89,10 @@
             <img src="~/Content/images/ins-icon.png" class="ins-icon-image" />
             <img src="~/Content/images/tw-icon.png" class="tw-icon-image" />
         </div>
-        <div class="Team-introduce">
             <p>&copy; @DateTime.Now.Year - Email: BaronCafe@gmail.com.vn</p>
             <p class="Team-name">Ngô Quang Hào - Bạch Thị Thủy Triều - Huỳnh Thiện Tấn - Tạ Yến Phương</p>
 
 
-        </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

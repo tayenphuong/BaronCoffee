@@ -1,6 +1,7 @@
 ﻿using BaronCoffee.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,25 +12,29 @@ namespace BaronCoffee.Areas.Admin.Controllers
     {
         private MyStoreEntities db = new MyStoreEntities();
         // GET: Admin/Oders
-        public ActionResult Index()
+        public ActionResult Index(string status= "Tất cả")
         {
             // Lấy danh sách tất cả đơn hàng, bao gồm thông tin khách hàng
-            var orders = db.Orders.Include("Customer").ToList();
-            return View(orders);
+            int customerId = 1; // Giả sử bạn có thông tin CustomerID trong phiên hoặc thông qua xác thực
+            var orders = db.Orders.Where(o => o.CustomerID == customerId).Include(o => o.OrderDetails.Select(od => od.Product));
+                           
+            if (status != "Tất cả")
+            {
+                orders = orders.Where(o => o.PaymentStatus == status);
+            }    
+            return View(orders.ToList(););
         }
 
         // GET: Order/Detail/5
         public ActionResult Detail(int id)
         {
-            // Lấy thông tin chi tiết của đơn hàng theo ID
             var order = db.Orders
-                          .Include("OrderDetails.Product") // Bao gồm thông tin sản phẩm trong chi tiết đơn hàng
-                          .Include("Customer")             // Bao gồm thông tin khách hàng
-                          .FirstOrDefault(o => o.OrderID == id);
+                  .Include(o => o.OrderDetails.Select(od => od.Product))
+                  .FirstOrDefault(o => o.OrderID == id);
 
             if (order == null)
             {
-                return HttpNotFound(); // Trả về 404 nếu không tìm thấy đơn hàng
+                return HttpNotFound();
             }
 
             return View(order);

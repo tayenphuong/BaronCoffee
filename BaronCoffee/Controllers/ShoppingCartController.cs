@@ -201,8 +201,61 @@ namespace BaronCoffee.Controllers
             return RedirectToAction("OrderHistory");
         }
 
+        [HttpPost]
+        public ActionResult PassOrder(CheckoutVM checkoutVM)
+        {
+            // Lấy thông tin từ giỏ hàng
+            var cartItems = Session["CartItems"] as List<CartItem>;
+            if (cartItems == null || !cartItems.Any())
+            {
+                return RedirectToAction("ShoppingCartPage"); // Nếu giỏ hàng trống, quay lại trang giỏ hàng
+            }
 
+            // Tạo đối tượng Order
+            var order = new Order
+            {
+                CustomerID = checkoutVM.CustomerID, // Lấy từ thông tin khách hàng
+                OrderDate = DateTime.Now,
+                TotalAmount = cartItems.Sum(item => item.Quantity * item.UnitPrice),
+                PaymentStatus = "Pending", // Cập nhật trạng thái thanh toán
+                AddressDelivery = checkoutVM.AddressDelivery
+            };
 
+            // Lưu Order vào cơ sở dữ liệu
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            // Lưu chi tiết đơn hàng (OrderDetails)
+            foreach (var item in cartItems)
+            {
+                var orderDetail = new OrderDetail
+                {
+                    OrderID = order.OrderID,
+                    ProductID = item.ProductId,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice
+                };
+
+                db.OrderDetails.Add(orderDetail);
+            }
+            db.SaveChanges();
+
+            // Xóa giỏ hàng sau khi hoàn tất đặt hàng
+            Session["CartItems"] = null;
+
+            // Chuyển hướng đến trang Quản Lý Đơn Hàng
+            return RedirectToAction("Index", "Oders");
+        }
+        public ActionResult CheckOrder(int id)
+        {
+            var order = db.Orders.FirstOrDefault(o => o.OrderID == id);
+            if (order != null)
+            {
+                order.PaymentStatus = "Hủy đơn hàng"; // Cập nhật trạng thái đơn hàng
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Orders");
+        }
 
     }
 

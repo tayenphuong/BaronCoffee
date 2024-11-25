@@ -8,5 +8,9 @@ namespace BaronCoffee.Models.ViewModel
     public class CheckoutVM
     {
         public List<CartItem> CartItems { get; set; }
+        
+        public int CustomerID { get; set; }
+
+        public string AddressDelivery { get; set }
     }
 }

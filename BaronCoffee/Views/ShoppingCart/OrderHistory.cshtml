@@ -1,47 +1,101 @@
-﻿@model List<BaronCoffee.Models.ViewModel.OrderHistory>
-@using System.Linq
-
-@{
-    ViewBag.Title = "Lịch Sử Giao Dịch";
+﻿@{
+    ViewBag.Title = "OrderHistory";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
-
-<h2>Lịch Sử Giao Dịch</h2>
-
-@if (Model != null && Model.Any())
-{
-    foreach (var order in Model)
-    {
-        <div class="order-summary">
-            <h4>Đơn Hàng #@order.OrderID</h4>
-            <p>Ngày Đặt Hàng: @order.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
-            <p>Trạng Thái: @order.Status</p>
-            <p>Tổng Số Tiền: @order.TotalAmount.ToString("C")</p>
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Sản Phẩm</th>
-                        <th>Số Lượng</th>
-                        <th>Đơn Giá</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in order.Products)
-                    {
-                        <tr>
-                            <td>@product.ProductName</td>
-                            <td>@product.Quantity</td>
-                            <td>@product.UnitPrice.ToString("C")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <hr />
+@using BaronCoffee.Models
+@model BaronCoffee.Models.ViewModel.CheckoutVM
+<style>
+    body {
+        background-color: #f9f9f9;
     }
-}
-else
-{
-    <p>Bạn chưa có giao dịch nào.</p>
-}
+
+    .checkout-container {
+        max-width: 1200px; /* Tăng chiều rộng tối đa */
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333333;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .order-summary {
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+    }
+
+        .order-summary h3 {
+            margin-bottom: 15px;
+        }
+
+    table.table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+        table.table img {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+        }
+</style>
+
+<div class="checkout-container">
+    <h1>Lịch Sử Đơn Hàng</h1>
+
+    <div class="order-summary">
+        <h3>Thông Tin Lịch Sử Đơn Hàng</h3>
+        <p><strong>Tổng tiền:</strong> @ViewBag.TotalPrice VNĐ</p>
+        <p><strong>Tổng số lượng sản phẩm:</strong> @ViewBag.TotalQuantity</p>
+
+        <h4>Chi Tiết Sản Phẩm:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Hình Ảnh</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Thành Tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td><img src="@item.ProductImage" alt="Product Image" /></td>
+                        <td>@item.ProductName</td>
+                        <td>@item.UnitPrice VNĐ</td>
+                        <td>@item.Quantity</td>
+                        <td>@(item.Quantity * item.UnitPrice) VNĐ</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Nút Hủy Đơn Hàng -->
+    <form action="@Url.Action("CancelOrder")" method="post">
+        <button type="submit" class="btn btn-danger">Hủy Đơn Hàng</button>
+    </form>
+</div>

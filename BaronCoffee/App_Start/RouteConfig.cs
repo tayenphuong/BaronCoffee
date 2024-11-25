@@ -18,6 +18,13 @@ namespace BaronCoffee
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+      name: "Statistics",
+      url: "Statistics/Index",
+      defaults: new { controller = "Statistics", action = "Index" }
+  );
+
+
         }
     }
 }

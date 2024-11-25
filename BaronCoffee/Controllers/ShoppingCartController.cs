@@ -62,15 +62,25 @@ namespace BaronCoffee.Controllers
             return View();
         }
         //Chức năng thêm vào giỏ hàng
-        public ActionResult AddToCart(int id, int quantity = 1)
+        [HttpPost]
+        public ActionResult AddToCart(int id, int quantity = 0)
         {
-            var products = db.Products.Find(id);
+            var products = db.Products.SingleOrDefault(p => p.ProductID == id);
 
             if (products != null)
             {
                 var cartService = Get_CartService();
                 var cart = cartService.GetCart();
-                cart.AddItems(products.ProductID, products.ProductName, products.ProductImage, products.ProductPrice, quantity, products.Category.CategoryName, products.ProductPrice);
+
+                    cart.AddItems(
+                        products.ProductID,
+                        products.ProductName,
+                        products.ProductImage,
+                        products.ProductPrice,
+                        quantity,
+                        products.Category.CategoryName,
+                        products.ProductPrice
+                    );
 
                 // Lưu giỏ hàng vào Session
                 Session["CartItems"] = cart.CartItems;

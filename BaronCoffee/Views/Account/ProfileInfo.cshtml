@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
 <h2 style="color:black; text-align:center">Thông tin tài khoản</h2>
 @using (Html.BeginForm("ProfileInfo", "Account", FormMethod.Post))
 {

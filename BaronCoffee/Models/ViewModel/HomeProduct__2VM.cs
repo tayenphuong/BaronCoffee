@@ -38,9 +38,9 @@ namespace BaronCoffee.Models.ViewModel
        
         public List<Category> Categories { get; set; }
         public Product product { get; set; }
-        public int quatity { get; set; } = 1;
+        public int quantity { get; set; } = 1;
         //hàm tạm tính
-        public decimal estimateValue => quatity * product.ProductPrice;
+        public decimal estimateValue => quantity * product.ProductPrice;
     }
 
 }

@@ -58,19 +58,21 @@
             </div>
         </div>
 
+        <form action="@Url.Action("AddToCart", "ShoppingCart")" method="post">
+            <div class="add-to-cart">
+                <button class="quantity-btn">-</button>
+                <span class="quantity">@Model.quantity</span>
+                <button class="quantity-btn">+</button>
+            </div>
 
-        <div class="add-to-cart">
-            <button class="quantity-btn">-</button>
-            <span class="quantity">@Model.quatity</span>
-            <button class="quantity-btn">+</button>
-        </div>
-
-        <button class="cart-btn">
+            <button class="cart-btn">
             <a href="@Url.Action("AddToCart","ShoppingCart",new { id = Model.product.ProductID,quantity = Model.quantity })" class="btn-AddOnCart button" id="Add-to-cart">
-                Thêm vào giỏ hàng50.000 VNĐ
+
+            Thêm vào giỏ hàng50.000 VNĐ
             </a>
-        </button>
-      
+            </button>
+
+        </form>
     </div>
 </div>
 <style>

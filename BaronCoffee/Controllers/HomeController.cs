@@ -126,7 +126,7 @@ namespace BaronCoffee.Controllers
 
             if (quatity.HasValue)
             {
-                model.quatity = quatity.Value;
+                model.quantity = quatity.Value;
             }
             return View(model);
 

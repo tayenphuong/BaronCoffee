@@ -269,10 +269,8 @@
     <Content Include="Areas\Admin\Views\Products\PVListProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Products\PVCreEditProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Admin_Login\Login.cshtml" />
-    <Content Include="Areas\Admin\Views\Customers\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Customers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Customers\PVDetail_Delete.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />

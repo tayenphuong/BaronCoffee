@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using LapTrinhWeb.Models;
+using BaronCoffee.Models;
 
-namespace LapTrinhWeb.Areas.Admin.Controllers
+namespace BaronCoffee.Areas.Admin.Controllers
 {
     public class CustomersController : Controller
     {
-        private ThietKeWebEntities db = new ThietKeWebEntities();
+        private MyStoreEntities db = new MyStoreEntities();
 
         // GET: Admin/Admin_Customers
         public ActionResult Index()

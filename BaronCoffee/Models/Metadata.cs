@@ -59,6 +59,17 @@ namespace BaronCoffee.Models
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
             public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         }
+        public partial class OrderDetail
+        {
+            public int ID { get; set; }
+            public int ProductID { get; set; }
+            public int OrderID { get; set; }
+            public int Quantity { get; set; }
+            public decimal UnitPrice { get; set; }
+
+            public virtual Order Order { get; set; }
+            public virtual Product Product { get; set; }
+        }
         public partial class Product
         {
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

@@ -77,6 +77,9 @@
                     <li>@Html.ActionLink("Khách hàng", "Index", "Customers", new { }, new { @class = "nav-link" })</li>
 
                     <li>@Html.ActionLink("Đơn hàng", "Index", "Oders", new { }, new { @class = "nav-link" })</li>
+
+                    <li> @Html.ActionLink("Thống kê đơn hàng", "Index", "Statistics", new { customerID = 1 }, new { @class = "nav-link" })</li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item dropdown">

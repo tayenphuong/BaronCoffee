@@ -153,7 +153,6 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>MyStoreModel1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\MyStoreModel1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

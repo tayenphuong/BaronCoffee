@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace LapTrinhWeb.Models.ViewModel
+namespace BaronCoffee.Models.ViewModel
 {
     public class RegisterVM
     {

@@ -3,7 +3,16 @@
     ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<h2 style="margin-top:15px"> THÊM SẢN PHẨM </h2>
+<style>
+    h2 {
+        margin-top: 20px;
+        font-style: italic;
+        color: #333;
+        text-align: center;
+    }
+</style>
+<h2> THÊM SẢN PHẨM </h2>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()

@@ -3,7 +3,22 @@
     ViewBag.Title = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<h2 style="margin-top:15px">XÓA SẢN PHẨM</h2style="margin-top:15px">
+<style>
+     h2 {
+        margin-top: 20px;
+        font-style: italic;
+        color: #333;
+        text-align: center;
+    }
+
+    .alert-danger {
+        color: red;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+<h2>XÓA SẢN PHẨM</h2>
 <h4 class="alert-danger">Bạn có chắc chắn muốn xóa sản phẩm này ?</h4>
 @Html.Partial("PVProductInfo", Model)
 <div style="padding:10px">

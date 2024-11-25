@@ -4,7 +4,21 @@
     ViewBag.Title = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<style>
+    h2 {
+        margin-top: 20px;
+        font-style: italic;
+        color: #333;
+        text-align: center;
+    }
 
+    h3 {
+        color: red;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
 <h2>XÓA DANH MỤC</h2>
 
 <h3>Bạn có chắc chắn muốn xóa mục này</h3>
@@ -13,7 +27,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @*@Html.DisplayNameFor(model => model.CategoryName)*@
+          
             Tên danh mục
         </dt>
 

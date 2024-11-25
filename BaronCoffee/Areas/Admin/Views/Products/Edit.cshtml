@@ -3,13 +3,22 @@
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<h2 style="margin-top:15px" >CẬP NHẬT SẢN PHẨM</h2>
+<style>
+    h2 {
+        margin-top: 20px;
+        font-style: italic;
+        color: #333;
+        text-align: center;
+    }
+</style>
+<h2>CẬP NHẬT SẢN PHẨM</h2>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Product</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProductID)

@@ -314,6 +314,8 @@
     <Content Include="Views\Account\UpdateProfile.cshtml" />
     <Content Include="Views\Home\TuyenDung.cshtml" />
     <Content Include="Views\Home\TuyenDungChiTiet.cshtml" />
+    <Content Include="Views\ShoppingCart\ConfirmOrder.cshtml" />
+    <Content Include="Views\ShoppingCart\OrderHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -422,6 +422,7 @@
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="selection"><img src="~/Content/images/Character-icon.png" class="selection-image" />Xin chào!@Session["Username"]</a>
                     <div class="dropdown-menu">
                         @Html.ActionLink("Thông tin tài khoản", "ProfileInfo", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
+                        @Html.ActionLink("Lịch sử giao dịch", "OderHistory", "ShoppingCart", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
                         @Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
                         <div class="dropdown-divider"></div>
                         @Html.ActionLink("Đăng xuất", "Logout", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })

@@ -98,7 +98,7 @@ namespace BaronCoffee.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            var model = new Register()
+            var model = new RegisterVM()
             {
                 Username = user.Username,
                 CustomerName = customer.CustomerName,

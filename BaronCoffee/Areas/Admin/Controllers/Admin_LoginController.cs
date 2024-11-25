@@ -23,13 +23,13 @@ namespace BaronCoffee.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var validUser = db.Users.SingleOrDefault(u => u.Username == model.Username && u.Password == model.Password && u.UserRole == "A");
+                var validUser = db.Users.SingleOrDefault(u => u.Username == model.Username && u.Password == model.Password && u.UserRole == "C");
                 if (validUser != null)
                 {
                     Session["Username"] = validUser.Username;
                     Session["Role"] = validUser.UserRole;
                     FormsAuthentication.SetAuthCookie(validUser.Username, rememberMe);
-                    return RedirectToAction("Index", "Admin_Home");
+                    return RedirectToAction("AdminHome", "AdminHome");
 
                 }
                 else
@@ -42,7 +42,7 @@ namespace BaronCoffee.Areas.Admin.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
-            return RedirectToAction("Index", "Admin_Home");
+            return RedirectToAction("AdminHome", "AdminHome");
         }
     }
 }

@@ -7,33 +7,23 @@
 <style>
     body {
         background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
     }
 
     .checkout-container {
-        max-width: 1200px; /* Tăng chiều rộng tối đa */
+        max-width: 800px;
         margin: 50px auto;
         padding: 20px;
         background-color: #ffffff;
         border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
         text-align: center;
         margin-bottom: 30px;
-        color: #333333;
-    }
-
-    label {
-        font-weight: bold;
-    }
-
-    input, textarea {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        color: #4B7864;
+        font-size: 28px;
     }
 
     .order-summary {
@@ -46,18 +36,76 @@
 
         .order-summary h3 {
             margin-bottom: 15px;
+            color: #333;
+        }
+
+        .order-summary p {
+            font-size: 16px;
+            margin: 5px 0;
         }
 
     table.table {
         width: 100%;
-        margin-bottom: 20px;
+        border-collapse: collapse;
+        margin-top: 20px;
     }
+
+        table.table th, table.table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        table.table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: #333;
+        }
 
         table.table img {
             width: 100px;
-            height: 80px;
+            height: auto;
             object-fit: cover;
+            border-radius: 5px;
         }
+
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    button.btn-danger, a.btn-primary {
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    button.btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        button.btn-danger:hover {
+            background-color: #c82333;
+        }
+
+    a.btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+        a.btn-primary:hover {
+            background-color: #0056b3;
+        }
+
 </style>
 
 <div class="checkout-container">
@@ -94,10 +142,13 @@
         </table>
     </div>
 
-    <!-- Nút Hủy Đơn Hàng -->
-    <form action="@Url.Action("CancelOrder")" method="post">
-        <button type="submit" class="btn btn-danger">Hủy Đơn Hàng</button>
-    </form>
-    <!--Về lại trang chủ-->
-    <a href="@Url.Action("Index", "Home")" class="btn btn-primary" style="margin-top: 20px;">Về Lại Trang Chủ</a>
+    <div class="action-buttons flex-container">
+        <!-- Nút Hủy Đơn Hàng -->
+        <form action="@Url.Action("CancelOrder")" method="post" class="action-buttons text-right">
+            <button type="submit" class="btn btn-danger">Hủy Đơn Hàng</button>
+        </form>
+        <!--Về lại trang chủ-->
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Về Lại Trang Chủ</a>
+    </div>
+    
 </div>

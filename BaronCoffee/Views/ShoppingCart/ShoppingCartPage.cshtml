@@ -41,6 +41,24 @@
         margin-bottom: 20px;
     }
 
+    .action-buttons a.btn-primary {
+        background-color: #4B7864; 
+        color: white;
+        padding: 15px 20px; 
+        border-radius: 8px; 
+        text-decoration: none;
+        font-size: 18px; 
+        font-weight: bold;
+        display: block; 
+        text-align: center;
+        width: 100%; 
+        box-sizing: border-box; 
+    }
+
+        .action-buttons a.btn-primary:hover {
+            background-color: #218838;
+        }
+
     .action-buttons button {
         width: 100%;
         padding: 10px;
@@ -85,18 +103,30 @@
         height: auto;
     }
 
-    td button {
-        background-color: red;
+    td a.btn-danger {
+        background-color: #dc3545; 
         color: white;
-        border: none;
         padding: 5px 10px;
         border-radius: 5px;
-        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
     }
 
-        td button:hover {
-            background-color: darkred;
+        td a.btn-danger:hover {
+            background-color: #c82333;
         }
+
+    input[type="number"] {
+        width: 50px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
 </style>
 <div class="cart-container">
     <!-- Bên trái: Danh sách sản phẩm trong giỏ -->
@@ -129,8 +159,7 @@
                             </td>
                             <td>@(item.Quantity * item.UnitPrice) VNĐ</td>
                             <td>
-                                <a href="@Url.Action("DeleteItemsOnCart", "ShoppingCart", new { id = item.ProductId })"
-                                   class="btn btn-danger">Xóa</a>
+                                <a href="@Url.Action("DeleteItemsOnCart", "ShoppingCart", new { id = item.ProductId })" class="btn btn-danger">Xóa</a>
                             </td>
                         </tr>
                     }

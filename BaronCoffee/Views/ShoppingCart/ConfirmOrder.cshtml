@@ -1,11 +1,77 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ConfirmOrder";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-<h2>Đặt hàng thành công!</h2>
-<p>Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi. Đơn hàng của bạn đã được xác nhận.</p>
-<p>Chúng tôi sẽ xử lý đơn hàng và giao hàng đến bạn trong thời gian sớm nhất.</p>
-<a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về Trang Chủ</a>
-<a href="@Url.Action("OrderHistory", "ShoppingCart")" class="btn btn-success">Xem Lịch Sử Giao Dịch</a>
+<div class="confirm-order-container">
+    <div class="confirm-order-message">
+        <h2>Đặt hàng thành công!</h2>
+        <p>Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi. Đơn hàng của bạn đã được xác nhận.</p>
+        <p>Chúng tôi sẽ xử lý đơn hàng và giao hàng đến bạn trong thời gian sớm nhất.</p>
+    </div>
+    <div class="confirm-order-actions">
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay về Trang Chủ</a>
+        <a href="@Url.Action("OrderHistory", "ShoppingCart")" class="btn btn-success">Xem Lịch Sử Giao Dịch</a>
+    </div>
+</div>
+
+<style>
+    .confirm-order-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .confirm-order-message h2 {
+        font-size: 28px;
+        color: #4B7864;
+        margin-bottom: 20px;
+    }
+
+    .confirm-order-message p {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 15px;
+        line-height: 1.6;
+    }
+
+    .confirm-order-actions {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+        .confirm-order-actions a {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .confirm-order-actions .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+            .confirm-order-actions .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .confirm-order-actions .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+            .confirm-order-actions .btn-success:hover {
+                background-color: #218838;
+            }
+
+</style>

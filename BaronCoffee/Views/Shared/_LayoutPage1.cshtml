@@ -7,25 +7,23 @@
     <title>@ViewBag.Title</title>
 
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+   
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
-            const dropdownMenu = document.querySelector('.dropdown-menu');
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropdown = document.querySelector(".dropdown");
 
-            // Ẩn/Hiện menu khi nhấn chuột
-            dropdownToggle.addEventListener('click', function (e) {
-                e.preventDefault(); // Ngăn chặn hành vi mặc định
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            dropdown.querySelector(".dropdown-toggle").addEventListener("click", function (e) {
+                e.preventDefault(); // Ngăn chặn điều hướng của chính dropdown-toggle
+                dropdown.classList.toggle("active");
             });
 
-            // Đóng menu khi nhấn ra ngoài
-            document.addEventListener('click', function (e) {
-                if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                    dropdownMenu.style.display = 'none';
+            // Đóng dropdown khi click bên ngoài
+            document.addEventListener("click", function (e) {
+                // Kiểm tra nếu click không nằm trong dropdown
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove("active");
                 }
             });
         });
@@ -373,6 +371,40 @@
             color: black;
             font: 50 18px Inter,;
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+/* dropdown của tài khoản */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            width: 150px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            .dropdown-menu a {
+                text-decoration: none;
+                display: block;
+                padding: 8px 16px;
+                color: black;
+                width:100%;
+            }
+
+                .dropdown-menu a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        /* Show dropdown on click */
+        .dropdown.active .dropdown-menu {
+            display: block;
+        }
+
     </style>
 
 </head>
@@ -406,32 +438,37 @@
                     </a>
                 </li>
                 @*--------------------------------------------------------------------login--------------------------------*@
-                <li class="dropdown">
-                    @if (Session["Username"] != null)
-                    {
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="selection"><img src="~/Content/images/Character-icon.png" class="selection-image" />Xin chào!@Session["Username"]</a>
-                        <div class=" dropdown-menu">
-                            @Html.ActionLink("Thông tin tài khoản", "ProfileInfo", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
+            <li class="dropdown">
+                @if (Session["Username"] != null)
+                {
+                    <a href="#" class="dropdown-toggle" id="selection">
+                        <img src="~/Content/images/Character-icon.png" class="selection-image" />
+                        Xin chào! @Session["Username"]
+                    </a>
+                    <div class="dropdown-menu">
+                        @Html.ActionLink("Thông tin tài khoản", "ProfileInfo", "Account", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Lịch sử giao dịch", "OderHistory", "ShoppingCart", null, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Account", null, new { @class = "dropdown-item" })
+                        <div class="dropdown-divider"></div>
+                        @Html.ActionLink("Đăng xuất", "Logout", "Account", null, new { @class = "dropdown-item" })
+                    </div>
+                }
+                else
+                {
+                   
+                        <a href="#" class="dropdown-toggle" id="selection">
+                             <img src="~/Content/images/Character-icon.png" class="selection-image" />
+                             Tài khoản
+                             <i class="fa-solid fa-caret-down"></i>
 
-                            @Html.ActionLink("Lịch sử giao dịch", "OderHistory", "ShoppingCart", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
+                        </a>
+            <div class="dropdown-menu">
+                @Html.ActionLink("Đăng nhập", "Login", "Account", null, new { @class = "dropdown-item" })
+                @Html.ActionLink("Đăng ký", "Register", "Account", null, new { @class = "dropdown-item" })
+            </div>
+        }
+            </li>
 
-
-                            @Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
-                            <div class="dropdown-divider"></div>
-                            @Html.ActionLink("Đăng xuất", "Logout", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
-                        </div>
-                    }
-                    else
-                    {
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="selection"><img src="~/Content/images/Character-icon.png" class="selection-image" />Tài khoản<span class="caret"></span></a>
-
-                        <div class="dropdown-menu">
-                            @Html.ActionLink("Đăng nhập", "Login", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
-                            @Html.ActionLink("Đăng ký", "Register", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
-                        </div>
-
-                    }
-                </li>
             </ul>
 
         </div>

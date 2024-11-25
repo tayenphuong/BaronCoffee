@@ -1,14 +1,20 @@
 ﻿
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
 
+<<<<<<< HEAD
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+=======
+    @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>*@
+>>>>>>> f67e907b8bd2eb120bb3079f1d353f986ed7a737
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style type="text/css">
         * {
@@ -45,7 +51,6 @@
             width: 100%;
             background-color: #4B7864;
             align-items: center;
-            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -53,7 +58,7 @@
         /*top head*/
         .top-head {
             width: 97%;
-            background-color: #FAF0E7;
+            background-color: #4B7864;
             border-radius: 16px;
             justify-content: space-around;
             display: flex;
@@ -72,20 +77,20 @@
             height: auto;
         }
 
-        .head-middle {
+        .search-container {
             position: relative;
-            left: 40%
-        }
-
-        .top-head input {
-            max-width: 5000px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
         }
 
         .search {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
             border: none;
             border-radius: 20px;
-            width: 450px;
-            padding: 15px;
             outline: none;
             font-size: 18px;
             background-color: #CCCC;
@@ -93,7 +98,8 @@
 
         .search-button {
             position: absolute;
-            left: 34%;
+            right: 10px;
+            border: none;
             top: 15%;
             bottom: 0;
             border: none;
@@ -102,7 +108,19 @@
             height: 35px;
             border-radius: 8px;
             background: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
         }
+
+            .search-button i {
+                color: #555;
+                font-size: 18px;
+            }
+
+            .search-button:hover i {
+                color: #000;
+            }
 
         /*icon mua hàng*/
         .cart {
@@ -155,6 +173,7 @@
 
             .list li a {
                 width: fit-content;
+                font: bold 18px arial,;
             }
 
         /* thanh menu */
@@ -175,7 +194,7 @@
                 padding: 10px;
                 background-color: #4B7864;
                 width: fit-content;
-                border-radius: 8px;
+                border: 1px solid #cccc border-radius: 8px;
             }
 
         /*thành phần trong thanh menu : trang chủ, thực đơn,...*/
@@ -340,61 +359,22 @@
             color: black;
             font: 50 18px Inter,;
         }
-        /* dropdown menu thực đơn */
-        /*        .list li {
-            display: inline-block;
-            position: relative;
+
+        .dropdown:hover .dropdown-menu {
         }
-
-        .dropdown li {
-            display: block;
-            margin: 2px 0px;
-            padding: 5px;
-        }
-
-        .dropdown {
-            width: 250px;
-            background: #FFFF;
-            position: absolute;
-            z-index: 999;
-            display: none;
-            padding: 20px;
-            text-align: left;
-            border: 0.5px solid #cccc;
-            border-radius: 8px;
-        }
-
-            .dropdown li a {
-                color: black;
-                font-size: 15px;
-                font-weight: bold;
-                padding: 10px;
-            }
-
-            .dropdown .category-select:hover {
-                background: #4B7864;
-            }
-
-            .dropdown .category-select a:hover {
-                width: 100%;
-            }
-
-        ul li:hover ul.dropdown {
-            display: block;
-        }*/
     </style>
 
 </head>
 <body>
     @* header *@
-    <header class="header">
+    <div class="header">
         <div class="top-head">
 
             <a href="~/Home/Index"><img src="~/Content/images/logo1.png" class="logo" /></a>
 
             <div class="list-background">
                 <ul class="list">
-                    <li><a href="~/Home/Index" class="menu1">Trang chủ</a></li>
+
 
                     <li>
                         <a href="@Url.Action("CategoryPage", "Home")" class="menu1">Thực đơn</a>
@@ -421,7 +401,10 @@
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="selection"><img src="~/Content/images/Character-icon.png" class="selection-image" />Xin chào!@Session["Username"]</a>
                         <div class="dropdown-menu">
                             @Html.ActionLink("Thông tin tài khoản", "ProfileInfo", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
+<<<<<<< HEAD
                             @Html.ActionLink("Lịch sử giao dịch", "OderHistory", "ShoppingCart", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
+=======
+>>>>>>> f67e907b8bd2eb120bb3079f1d353f986ed7a737
                             @Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
                             <div class="dropdown-divider"></div>
                             @Html.ActionLink("Đăng xuất", "Logout", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
@@ -430,10 +413,17 @@
                     else
                     {
                         <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="selection"><img src="~/Content/images/Character-icon.png" class="selection-image" />Tài khoản</a>
+<<<<<<< HEAD
                         <div class="dropdown-menu">
                             @Html.ActionLink("Đăng nhập", "Login", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
                             @Html.ActionLink("Đăng ký", "Register", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
                         </div>
+=======
+                        @*<div class="dropdown-menu">
+                                @Html.ActionLink("Đăng nhập", "Login", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
+                                @Html.ActionLink("Đăng ký", "Register", "Account", new { area = "" }, new { @class = "dropdown-item", @style = "color: black; width: 100%" })
+                            </div>*@
+>>>>>>> f67e907b8bd2eb120bb3079f1d353f986ed7a737
                     }
                 </li>
             </ul>
@@ -443,8 +433,8 @@
         @*--------------------------- thanh menu ---------------------------*@
 
 
-    </header>
-    <div class="container body-content" style="margin:0 auto">
+    </div>
+    <div class="container" style="margin:0 auto">
         @RenderBody()
     </div>
     <div class="footer">

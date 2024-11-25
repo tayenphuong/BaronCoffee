@@ -224,6 +224,7 @@
     <Content Include="Content\images\s1.jpg" />
     <Content Include="Content\images\s2.jpg" />
     <Content Include="Content\images\Shopping-cart-icon.png" />
+    <Content Include="Content\images\tuyển dụng.jpg" />
     <Content Include="Content\images\tw-icon.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
@@ -311,6 +312,8 @@
     <Content Include="Views\Account\ProfileInfo.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\UpdateProfile.cshtml" />
+    <Content Include="Views\Home\TuyenDung.cshtml" />
+    <Content Include="Views\Home\TuyenDungChiTiet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

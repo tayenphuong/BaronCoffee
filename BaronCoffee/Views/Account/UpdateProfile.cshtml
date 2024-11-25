@@ -5,20 +5,18 @@
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-<h2 style="color:black; text-align:center">Cập nhật thông tin tài khoản</h2>
+<h2>Cập nhật thông tin tài khoản</h2>
 @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="khungthongtin">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(m => m.Username)
         <div class="form-group">
             Tên khách hàng
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", @style = "width: 40%" } })
+                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%" } })
                 @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +24,7 @@
         <div class="form-group">
             Số điện thoại
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control", @style = "width: 40%" } })
+                @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%" } })
                 @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,7 +32,7 @@
         <div class="form-group">
             Email
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control", @style = "width: 40%" } })
+                @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%" } })
                 @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +40,7 @@
         <div class="form-group">
             Địa chỉ
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control", @style = "width: 40%" } })
+                @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control", @style = "width: 100%" } })
                 @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,4 +55,89 @@
 {
     <p class="text-success">@ViewBag.Message</p>
 }
+<style>
+    /* Khung thông tin tổng thể */
+    .khungthongtin {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        max-width: 600px;
+        margin: 20px auto 30px auto;
+    }
+
+    /* Nhãn tiêu đề */
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    /* Nhãn cho các trường dữ liệu */
+    .form-group label {
+        font-weight: bold;
+        color: #555;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    /* Input và Editor */
+    .form-control {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* Nút bấm */
+    button.btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        margin-right: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        button.btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    a.btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+        a.btn-secondary:hover {
+            background-color: #545b62;
+            border-color: #545b62;
+        }
+
+    /* Validation message */
+    .text-danger {
+        color: #dc3545;
+        font-size: 14px;
+    }
+
+    /* Success message */
+    .text-success {
+        color: #28a745;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+
 

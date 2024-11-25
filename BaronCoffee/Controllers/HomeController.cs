@@ -18,10 +18,20 @@ namespace BaronCoffee.Controllers
         private MyStoreEntities db = new MyStoreEntities();
         public ActionResult DiaChi()
         {
-            
+
             return View();
         }
-        
+        public ActionResult TuyenDung()
+        {
+
+            return View();
+        }
+        public ActionResult TuyenDungChiTiet()
+        {
+
+            return View();
+        }
+
         public ActionResult Index(string SearchTerm, int? page)
         {
             var model = new HomeProduct__2VM();
@@ -35,7 +45,7 @@ namespace BaronCoffee.Controllers
 
 
                 int pageNumer = page ?? 1;
-                int pageSize = 2;
+                int pageSize = 5;
 
 
                 model.Products = products.OrderByDescending(p => p.OrderDetails.Count()).Take(5).ToPagedList(pageNumer, pageSize);
@@ -46,7 +56,7 @@ namespace BaronCoffee.Controllers
             model.FeaturedProducts = db.Products.OrderByDescending(p => p.OrderDetails.Count()).Take(5).ToList();
 
             model.Categories = db.Categories.ToList();
-            
+
             return View(model);
 
         }
@@ -100,11 +110,11 @@ namespace BaronCoffee.Controllers
 
             return View("ProductsByCategory", model);
         }
-        public ActionResult ProductDetail(int?id, int?quatity ) 
+        public ActionResult ProductDetail(int? id, int? quatity)
         {
             var model = new ProductDetail();
             model.Categories = db.Categories.ToList();
-            
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -119,10 +129,10 @@ namespace BaronCoffee.Controllers
 
             var products = db.Products.Where(p => p.CategoryID == pro.CategoryID && p.ProductID != pro.ProductID).AsQueryable();
 
-          
-           
+
+
             model.product = pro;
-            
+
 
             if (quatity.HasValue)
             {
@@ -153,6 +163,6 @@ namespace BaronCoffee.Controllers
 
             return View(model);
         }
-        
+
     }
 }

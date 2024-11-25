@@ -22,7 +22,7 @@ namespace BaronCoffee.Areas.Admin.Controllers
             {
                 orders = orders.Where(o => o.PaymentStatus == status);
             }    
-            return View(orders.ToList(););
+            return View(orders.ToList());
         }
 
         // GET: Order/Detail/5

@@ -11,6 +11,6 @@ namespace BaronCoffee.Models.ViewModel
         
         public int CustomerID { get; set; }
 
-        public string AddressDelivery { get; set }
+        public string AddressDelivery { get; set; }
     }
 }

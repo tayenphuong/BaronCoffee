@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Tuyển Dụng";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tuyển Dụng</title>
+
+    <style>
+        body {
+            margin: 0;
+        }
+        /*header*/
+        .tdheader {
+            margin-top: 30px;
+            background-color: #76c4a1;
+            display: flex;
+            justify-content: center;
+            height: 70px;
+            align-items: center;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 25px;
+        }
+        /*-----------------------content--------------------------*/
+        .content {
+            place-items: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .KhungTuyenDung {
+            background-color: #4B7864;
+            width: 60%;
+            padding: 2%;
+            margin-bottom: 10px;
+            border-radius: 16px;
+            justify-items: center;
+        }
+
+        h4 {
+            color: #02542D;
+            font-size: 23px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .content img {
+            width: 70%;
+            padding: 5px;
+        }
+
+        p {
+            margin: 0;
+            padding-bottom: 15px;
+            font-weight: bold;
+            color: #4B7864;
+        }
+
+        /*bang tuyen dung*/
+        table {
+            color: white;
+            font-size: 25px;
+        }
+
+            table td, table th {
+                line-height: 1.8;
+            }
+
+            table a {
+                text-decoration: none;
+                font-size: 27px;
+                color: #F2CFF1;
+                font-weight: bold;
+            }
+        /*link biểu mẫu*/
+        .KhungTuyenDung span {
+            align-items: center;
+            background-color: #c31818;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+            .KhungTuyenDung span a {
+                font-size: 20px;
+                text-decoration: none;
+                padding: 15px;
+            }
+
+        .content ul li {
+            list-style: circle
+        }
+    </style>
+
+</head>
+<body>
+    @*header*@
+    <div class="tdheader">
+
+        <h3 style="color:white">BẠN ĐANG TÌM KIẾM MỘT CÔNG VIỆC ?</h3>
+    </div>
+    @*Content*@
+    <div class="content">
+        <h4>HÃY THAM GIA NGAY CÙNG CHÚNG TÔI</h4>
+
+        @*hình ảnh tuyển dụng*@
+
+        <img src="~/Content/images/tuyển dụng.jpg" />
+
+
+
+        <div class="Content">
+            <p>Mô tả công việc</p>
+            <ul>
+                <li>Bán sản phẩm trà/cafe, dọn dẹp vệ sinh cửa hàng, hỗ trợ khách hàng.</li>
+                <li>Kiểm đếm hàng hoá, sản phẩm.</li>
+                <li>Đảm bảo sự hài lòng của khách hàng về chất lượng dịch vụ tại cửa hàng.</li>
+                <li>Làm việc linh động/xoay ca</li>
+            </ul>
+
+            <p>Yêu cầu</p>
+            <ul>
+                <li>Nam /Nữ 18 -> 22 tuổi.</li>
+                <li>Ưu tiên có kinh nghiệm trong ngành dịch vụ,..., chịu được áp lực công việc.</li>
+                <li>Nhanh nhẹn, vui vẻ, siêng năng, hoạt bát, thích giao tiếp và làm việc trong môi trường dịch vụ.</li>
+                <li>Ngoại hình cân đối, dễ nhìn.</li>
+            </ul>
+
+            <p>Quyền lợi</p>
+            <ul>
+                <li>Mức lương hấp dẫn</li>
+                <li>Có cơ hội thăng tiến, đào tạo nghiệp vụ Pha chế, Thu ngân nếu gắn bó, định hướng lâu dài.</li>
+                <li>Ưu đãi 50% nước uống tại tất cả chi nhánh</li>
+
+            </ul>
+
+            <p style="color:red">Lưu ý</p>
+            <ul>
+                <li>P.Tuyển dụng sẽ liên hệ mời phỏng vấn hồ sơ phù hợp yêu cầu tuyển dụng qua email/ điện thoại.</li>
+                <li>Chúng tôi không thu bất kỳ phí nào của ứng viên.</li>
+
+            </ul>
+        </div>
+
+    </div>
+
+
+    @*footer*@
+
+</body>
+</html>
+

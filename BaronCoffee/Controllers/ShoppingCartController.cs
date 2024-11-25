@@ -114,9 +114,9 @@ namespace BaronCoffee.Controllers
 
         public ActionResult ConfirmOrder()
         {
-            // Có thể ở đây bạn xử lý thêm nếu cần (ví dụ: lưu thông tin đơn hàng, gửi email, v.v.)
+            
 
-            // Trả về view ConfirmOrder.cshtml
+            // Trả về trang ConfirmOrder
             return View();
         }
 
@@ -156,39 +156,44 @@ namespace BaronCoffee.Controllers
 
         public ActionResult OrderHistory()
         {
-            // Lấy danh sách lịch sử đơn hàng từ Session hoặc khởi tạo mới nếu chưa có
-            var orderHistories = Session["OrderHistories"] as List<OrderHistory> ?? new List<OrderHistory>();
+            // Lấy giỏ hàng từ CartService
+            var cartService = Get_CartService();
+            var cartItems = cartService.GetCart().CartItems.ToList();
 
-            // Lấy giỏ hàng từ Session
-            var cart = Session["CartItems"] as Cart;
-
-            if (cart != null && cart.CartItems.Any())
+            // Nếu không có giỏ hàng, tạo giỏ hàng rỗng
+            if (cartItems == null || !cartItems.Any())
             {
-                // Tạo một lịch sử đơn hàng mới từ dữ liệu trong giỏ hàng
-                var orderHistory = new OrderHistory
-                {
-                    OrderID = new Random().Next(1000, 9999), // ID đơn hàng ngẫu nhiên
-                    OrderDate = DateTime.Now,
-                    Status = "Completed", // Trạng thái đơn hàng
-                    TotalAmount = cart.CartItems.Sum(item => item.Quantity * item.UnitPrice), // Tổng tiền
-                    Products = cart.CartItems.ToList() // Chuyển đổi IEnumerable thành List
-                };
-
-                // Thêm đơn hàng mới vào danh sách lịch sử
-                orderHistories.Add(orderHistory);
-
-                // Lưu danh sách lịch sử đơn hàng vào Session
-                Session["OrderHistories"] = orderHistories;
-
-                // Xóa giỏ hàng sau khi tạo đơn hàng
-                Session["CartItems"] = null;
+                cartItems = new List<CartItem>();
             }
 
-            // Truyền danh sách lịch sử đơn hàng vào View
-            return View(orderHistories);
+            // Tính tổng tiền và số lượng sản phẩm
+            ViewBag.CartItems = cartItems;
+            ViewBag.TotalPrice = cartItems.Sum(item => item.Quantity * item.UnitPrice);
+            ViewBag.TotalQuantity = cartItems.Sum(item => item.Quantity);
+
+            var CheckoutVM = new CheckoutVM
+            {
+                CartItems = cartItems
+
+            };
+
+
+            return View(CheckoutVM);
+        }
+
+        [HttpPost]
+        public ActionResult CancelOrder()
+        {
+            // Xóa lịch sử đơn hàng và giỏ hàng khỏi Session
+            Session.Clear();
+
+            // Điều hướng về trang "OrderHistory" sau khi hủy đơn hàng
+            return RedirectToAction("OrderHistory");
         }
 
 
 
+
     }
+
 }

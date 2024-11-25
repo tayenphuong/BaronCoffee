@@ -1,7 +1,168 @@
-﻿
+﻿@model BaronCoffee.Models.ViewModel.ProductDetail
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "ProductDetail";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Giá sản phẩm cơ bản
+            let basePrice = 50000; // Giá mặc định cho 1 sản phẩm
+            let quantity = 1; // Số lượng mặc định là 1
 
-<h2>Details</h2>
+            // DOM Elements
+            const incrementButton = document.querySelector('.quantity-btn:nth-of-type(2)'); // Nút tăng số lượng
+            const decrementButton = document.querySelector('.quantity-btn:nth-of-type(1)'); // Nút giảm số lượng
+            const quantityElement = document.querySelector('.quantity'); // Hiển thị số lượng
+            const cartButton = document.querySelector('.cart-btn'); // Nút thêm vào giỏ hàng
 
+            // Hàm cập nhật tổng giá tiền
+            function updateCartPrice() {
+                let totalPrice = basePrice * quantity; // Tính giá tiền tổng
+                cartButton.textContent = `Thêm vào giỏ hàng : ${totalPrice.toLocaleString()} đ`; // Cập nhật nội dung nút
+            }
+
+            // Xử lý sự kiện khi nhấp vào nút tăng
+            incrementButton.addEventListener('click', () => {
+                quantity++; // Tăng số lượng
+                quantityElement.textContent = quantity; // Hiển thị số lượng cập nhật
+                updateCartPrice(); // Cập nhật giá tiền
+            });
+
+            // Xử lý sự kiện khi nhấp vào nút giảm
+            decrementButton.addEventListener('click', () => {
+                if (quantity > 1) {
+                    quantity--; // Giảm số lượng
+                    quantityElement.textContent = quantity; // Hiển thị số lượng cập nhật
+                    updateCartPrice(); // Cập nhật giá tiền
+                }
+            });
+        });
+</script>
+
+<div class="product-container">
+    
+    <div class="product-image">
+        <img src="@Model.product.ProductImage">
+    </div>
+    <div class="product-details">
+        <h2><strong>@Model.product.ProductName </strong></h2>
+        <p class="prod-category">Loại nước: @Model.product.Category.CategoryName</p>
+        <p class="price">@Model.product.ProductPrice</p>
+
+
+        <div class="ProdDescription">
+            <h4>Mô tả sản phẩm</h4>
+            <div>
+                <small>
+                    @Model.product.ProductDescription
+                </small>
+            </div>
+        </div>
+
+
+        <div class="add-to-cart">
+            <button class="quantity-btn">-</button>
+            <span class="quantity">@Model.quatity</span>
+            <button class="quantity-btn">+</button>
+        </div>
+
+        <form action="@Url.Action("AddToCart", "ShoppingCart")" method="post">
+            <input type="hidden" name="ProductID" value="@Model.product.ProductID" />
+            <input type="hidden" name="productName" value="@Model.product.ProductName" />
+            <input type="hidden" name="price" value="@Model.product.ProductPrice" />
+            <label for="quantity">Số lượng:</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1" />
+            <button type="submit" class="btn btn-success">Thêm vào giỏ hàng</button>
+        </form>
+      
+
+    </div>
+</div>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-container {
+        display: flex;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .product-image {
+        width: 400px;
+        height: 400px;
+        border-radius: 20px;
+        background-color: #e8dcdc;
+    }
+
+    .product-details {
+        margin-left: 40px;
+    }
+
+        .product-details h2 {
+            font-size: 35px;
+            color: #333;
+        }
+
+        .product-details .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #009432;
+            margin-bottom: 20px;
+        }
+
+    .quantity-btn {
+        padding: 10px 15px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .cart-btn {
+        padding: 10px 15px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        background-color: #4B7864;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .quantity-btn:hover {
+        background-color: #D9D9D9;
+    }
+
+    .cart-btn:hover {
+        background-color: #4B7864;
+    }
+
+    .add-to-cart {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .add-to-cart .quantity {
+            padding: 0 10px;
+            font-size: 16px;
+        }
+
+    .cart-btn {
+        background-color: #009432;
+        color: #fff;
+        border: none;
+        font-size: 16px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #e5d5d5;
+    }
+</style>

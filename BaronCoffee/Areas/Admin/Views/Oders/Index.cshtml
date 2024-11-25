@@ -1,0 +1,73 @@
+﻿@model IEnumerable<BaronCoffee.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container">
+    <h2>Danh Sách Đơn Hàng</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Mã Đơn Hàng</th>
+                <th>Khách Hàng</th>
+                <th>Ngày Đặt Hàng</th>
+                <th>Tổng Tiền</th>
+                <th>Trạng Thái Thanh Toán</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderID</td>
+                    <td>@order.Customer.CustomerName</td>
+                    <td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+                    <td>@order.TotalAmount.ToString("C")</td>
+                    <td>@order.PaymentStatus</td>
+                    <td>
+                        <a href="@Url.Action("Detail", "Order", new { id = order.OrderID })" class="btn"> Chi Tiết</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<style type="text/css">
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+    .btn {
+        display: inline-block;
+        padding: 8px 12px;
+        font-size: 14px;
+        text-decoration: none;
+        color: white;
+        background-color: #007bff;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Điều chỉnh layout */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+</style>

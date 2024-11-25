@@ -1,21 +1,105 @@
-﻿@model BaronCoffee.Models.ViewModel.HomeProduct__2VM
+﻿@model BaronCoffee.Models.ViewModel.CategoryPageVM
 @{
     ViewBag.Title = "CategoryPage";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
 <h2>CategoryPage</h2>
-@if (Model.Categories != null && Model.Categories.Any())
-{
-   <p style="color:#4B7864">Danh mục thực đơn</p>
-    foreach (var category in Model.Categories)
-    {
-        
 
-            <a href="@Url.Action("ProductsByCategory", "Home", new {  CategoryId = category.CategoryID})">
-                @category.CategoryName
-            </a>
-        
+<div class="category-container">
+
+    <a href="@Url.Action("ProductsByCategory", "Home")"><h3> DANH SÁCH SẢN PHẨM </h3></a>
+
+    @foreach (var category in Model.CategoriesWithProducts)
+    {
+
+
+
+        <a href="@Url.Action("ProductsByCategory", "Home", new {  CategoryId = category.CategoryID})">
+            <div class="category-box">
+                <h3>@category.CategoryName</h3>
+
+                <div class="products">
+                    @if (category.FeaturedProducts != null && category.FeaturedProducts.Any())
+                    {
+                        <ul>
+                            @foreach (var product in category.FeaturedProducts)
+                            {
+
+                                <li>
+                                    <img src="@product.ProductImage" />
+                                    <h4>@product.ProductName</h4>
+                                    <p>Giá: @product.ProductPrice</p>
+
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Không có sản phẩm nào trong danh mục này.</p>
+                    }
+                </div>
+            </div>
+
+        </a>
+
     }
-    
-}
+</div>
+<style>
+    img {
+        width: 150px;
+    }
+
+    h4 {
+        font: 17px;
+        color: #4B7864;
+        font-style: italic;
+    }
+
+    p {
+        font-size: 14px;
+        color:black;
+    }
+
+    .category-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin: 20px;
+    }
+
+    .category-box {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        width: fit-content;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        font-weight: 300;
+        font-size: 21px;
+        font-style: italic;
+        color: #4B7864;
+        margin-bottom: 10px;
+    }
+
+    .products {
+    }
+
+        .products ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+        }
+
+            .products ul li {
+                margin-bottom: 10px;
+                padding: 10px;
+                text-align: center
+            }
+</style>

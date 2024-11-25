@@ -134,11 +134,23 @@ namespace BaronCoffee.Controllers
         }
         public ActionResult CategoryPage()
         {
-            var model = new HomeProduct__2VM();
-            var categories = db.Categories.AsQueryable();
+            var model = new CategoryPageVM();
 
-            model.Categories = categories.ToList();
-            
+            // Lấy tất cả danh mục
+            var categories = db.Categories.ToList();
+
+            // Tạo danh sách danh mục với sản phẩm nổi bật
+            model.CategoriesWithProducts = categories.Select(category => new CategoryWithProductsVM
+            {
+                CategoryID = category.CategoryID,
+                CategoryName = category.CategoryName,
+                FeaturedProducts = db.Products
+                    .Where(p => p.CategoryID == category.CategoryID) // Lọc sản phẩm theo CategoryID
+                    .OrderByDescending(p => p.OrderDetails.Count())  // Sắp xếp theo số lượng đặt hàng
+                    .Take(3)                                         // Lấy 3 sản phẩm đầu tiên
+                    .ToList()
+            }).ToList();
+
             return View(model);
         }
         

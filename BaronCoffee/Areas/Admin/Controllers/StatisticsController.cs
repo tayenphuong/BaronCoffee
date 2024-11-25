@@ -1,9 +1,11 @@
-﻿using BaronCoffee.Models;// Đường dẫn tới model và DbContext
+﻿using BaronCoffee.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace BaronCoffee.Areas.Admin.Controllers
 {
@@ -13,24 +15,32 @@ namespace BaronCoffee.Areas.Admin.Controllers
 
         private MyStoreEntities db = new MyStoreEntities();
 
-        // Action: Thống kê đơn hàng của khách hàng
-        public ActionResult CustomerStatistics(int customerId)
+        public ActionResult Index()
         {
-            // Lấy thông tin khách hàng
-            var customer = db.Customers.Find(customerId);
-            if (customer == null)
+            // Lấy danh sách khách hàng và đơn hàng từ cơ sở dữ liệu
+            var customers = db.Customers.ToList(); 
+            var orders = db.Orders.ToList();       
+
+            // Thống kê số lượng đơn hàng của từng khách hàng
+            var statistics = db.Customers
+                .Select(c => new CustomerOrderStatistic
             {
-                return HttpNotFound("Không tìm thấy khách hàng.");
-            }
+                CustomerID = c.CustomerID,
+                CustomerName = c.CustomerName,
+                CustomerEmail = c.CustomerEmail,
+                OrderCount = c.Orders.Count(o => o.CustomerID == c.CustomerID) //tính số lượng đơn hàng
+                }).ToList();
 
-            // Đếm số lượng đơn hàng của khách hàng
-            int orderCount = db.Orders.Count(o => o.CustomerID == customerId);
-
-            // Truyền dữ liệu vào view
-            ViewBag.CustomerName = customer.CustomerName;
-            ViewBag.OrderCount = orderCount;
-
-            return View();
+            return View(statistics); // Truyền dữ liệu vào View
         }
+    }
+
+    // ViewModel cho kết quả thống kê
+    public class CustomerOrderStatistic
+    {
+        public int CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerEmail { get; set; }
+        public int OrderCount { get; set; }
     }
 }
